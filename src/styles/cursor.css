@@ -1,0 +1,46 @@
+* cursor */ .cursor,
+.cursor-bd {
+  display: none;
+}
+
+@media (any-pointer: fine) {
+  .cursor {
+    display: block;
+
+    position: fixed;
+    z-index: 10000;
+
+    width: var(--size);
+    height: var(--size);
+
+    background: var(--color-primary);
+    border-radius: 50%;
+    mix-blend-mode: multiply;
+
+    pointer-events: none;
+  }
+
+  .cursor-bd {
+    display: block;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+
+    width: var(--size);
+    height: var(--size);
+
+    /* border: 1px solid var(--color-primary);
+    border-radius: 50%; */
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: contain;
+
+    background-image: url("/assets/img/common/cursor_bd_img.svg");
+
+    mix-blend-mode: multiply;
+
+    pointer-events: none;
+  }
+}

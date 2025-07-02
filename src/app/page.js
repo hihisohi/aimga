@@ -1,18 +1,49 @@
 "use client";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import { useEffect, useRef } from "react";
+
 import Image from "next/image";
 import styles from "./page.module.css";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
-import "swiper/css";
-
 export default function Home() {
+  const progressRef = useRef(null);
+  const indicatorNumRef = useRef(null);
+  const currentSpanRef = useRef(null);
+  const nextSpanRef = useRef(null);
+
+  // Progress 관련 함수들
+  const resetProgress = (progressElement) => {
+    if (progressElement) {
+      progressElement.style.strokeDashoffset = "339.29";
+      progressElement.style.transition = "none";
+    }
+  };
+
+  const startProgress = (progressElement) => {
+    if (progressElement) {
+      // 약간의 지연 후 애니메이션 시작
+      setTimeout(() => {
+        progressElement.style.transition = "stroke-dashoffset 4s linear";
+        progressElement.style.strokeDashoffset = "0";
+      }, 100);
+    }
+  };
+
+  useEffect(() => {
+    // 초기 progress 시작
+    if (progressRef.current) {
+      startProgress(progressRef.current);
+    }
+  }, []);
+
   return (
     <div id="wrap">
       <main id="main">
         <section className={styles["sc__main-visual"]}>
-          <div className={styles["sc-inner"]}>
+          <div className="sc-inner">
             <Swiper
               grabCursor={true}
               loop={true}
@@ -21,101 +52,102 @@ export default function Home() {
                 delay: 4000,
                 disableOnInteraction: false,
               }}
+              className={styles["main-visual-swiper"]}
               onInit={(swiper) => {
                 const currentSlide = swiper.slides[swiper.realIndex];
-                const cover = currentSlide.querySelector(".main-visual-cover");
+                const cover = currentSlide.querySelector(
+                  `.${styles["main-visual-cover"]}`
+                );
                 if (cover) {
                   cover.style.opacity = 0;
                 }
 
                 // 메인 비주얼 인디케이터
-                const progressCircle = document.querySelector(".progress");
-                if (progressCircle) {
-                  resetProgress(progressCircle);
-                  startProgress(progressCircle);
+                if (progressRef.current) {
+                  resetProgress(progressRef.current);
+                  startProgress(progressRef.current);
                 }
               }}
               onSlideChangeTransitionStart={(swiper) => {
-                const progressCircle = document.querySelector(".progress");
-                progressCircle && resetProgress(progressCircle);
+                if (progressRef.current) {
+                  resetProgress(progressRef.current);
+                }
 
-                const indicatorNum = document.querySelector(".indicator-num");
-                const currentSpan = indicatorNum.querySelector(".current");
-                const nextSpan = indicatorNum.querySelector(".next");
+                if (indicatorNumRef.current) {
+                  const currentSpan = currentSpanRef.current;
+                  const nextSpan = nextSpanRef.current;
 
-                const nextNumber = `0${swiper.realIndex + 1}`;
-                nextSpan.textContent = nextNumber;
+                  if (currentSpan && nextSpan) {
+                    const nextNumber = `0${swiper.realIndex + 1}`;
+                    nextSpan.textContent = nextNumber;
 
-                // 애니메이션 트리거
-                currentSpan.style.transition = "all 0.4s ease";
-                nextSpan.style.transition = "all 0.4s ease";
-                currentSpan.style.transform = "translate(-50%, 100%)";
-                currentSpan.style.opacity = "0";
-                nextSpan.style.transform = "translate(-50%, 0%)";
-                nextSpan.style.opacity = "1";
+                    // 애니메이션 트리거
+                    currentSpan.style.transition = "all 0.4s ease";
+                    nextSpan.style.transition = "all 0.4s ease";
+                    currentSpan.style.transform = "translate(-50%, 100%)";
+                    currentSpan.style.opacity = "0";
+                    nextSpan.style.transform = "translate(-50%, 0%)";
+                    nextSpan.style.opacity = "1";
 
-                // 애니메이션 완료 후 클래스 역할 교체
-                setTimeout(() => {
-                  currentSpan.textContent = nextNumber;
+                    // 애니메이션 완료 후 클래스 역할 교체
+                    setTimeout(() => {
+                      currentSpan.textContent = nextNumber;
 
-                  // reset
-                  currentSpan.style.transition = "none";
-                  nextSpan.style.transition = "none";
-                  currentSpan.style.transform = "translate(-50%, 0%)";
-                  currentSpan.style.opacity = "1";
-                  nextSpan.style.transform = "translate(-50%, -50%)";
-                  nextSpan.style.opacity = "0";
-                }, 400); // CSS transition 시간과 맞춤
+                      // reset
+                      currentSpan.style.transition = "none";
+                      nextSpan.style.transition = "none";
+                      currentSpan.style.transform = "translate(-50%, 0%)";
+                      currentSpan.style.opacity = "1";
+                      nextSpan.style.transform = "translate(-50%, -50%)";
+                      nextSpan.style.opacity = "0";
+                    }, 400); // CSS transition 시간과 맞춤
+                  }
+                }
               }}
               onSlideChangeTransitionEnd={(swiper) => {
-                const progressCircle = document.querySelector(".progress");
-                progressCircle && startProgress(progressCircle);
+                if (progressRef.current) {
+                  startProgress(progressRef.current);
+                }
               }}
               modules={[Autoplay]}
             >
-              <SwiperSlide>
-                <div className={styles["container-1360"]}>
+              <SwiperSlide className={styles["slide-1"]}>
+                <div className="container-1360">
                   <div className={styles["main-visual-tit"]}>
-                    <h3>
-                      <span>
-                        <span className={styles["text-en"]}>
-                          26 Years of Excellence
-                        </span>
-                      </span>
-                      <span
-                        className={
-                          styles["bold"] + " " + styles["slide-up-wrapper"]
-                        }
-                      >
+                    <div>
+                      <h3>
                         <span>
-                          Advanced Injury & <br /> DISC Center
+                          <span className={styles["text-en"]}>
+                            26 Years of Excellence
+                          </span>
                         </span>
-                      </span>
-                    </h3>
-                    <p>
-                      <span>
-                        Our goal is to treat the root cause of your
-                        discomfort—not <br />
-                        just the symptoms—while guiding you toward a healthier,
-                        pain-free life
-                      </span>
-                    </p>
+                        <span
+                          className={
+                            styles["bold"] + " " + styles["slide-up-wrapper"]
+                          }
+                        >
+                          <span>
+                            Advanced Injury & <br /> DISC Center
+                          </span>
+                        </span>
+                      </h3>
+                      <p>
+                        <span>
+                          Our goal is to treat the root cause of your
+                          discomfort—not <br />
+                          just the symptoms—while guiding you toward a
+                          healthier, pain-free life
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div className={styles["main-visual-cover"]}></div>
               </SwiperSlide>
-            </Swiper>
-
-            <div className={styles["main-visual-swiper"]}>
-              <div className={styles["swiper-wrapper"]}>
-                <div
-                  className={styles["swiper-slide"] + " " + styles["slide-1"]}
-                ></div>
-                <div
-                  className={styles["swiper-slide"] + " " + styles["slide-2"]}
-                >
-                  <div className={styles["container-1360"]}>
-                    <div className={styles["main-visual-tit"]}>
+              <SwiperSlide className={styles["slide-2"]}>
+                <div className="container-1360">
+                  <div className={styles["main-visual-tit"]}>
+                    <div>
                       <h3>
                         <span>
                           <span className={styles["text-en"]}>
@@ -143,13 +175,13 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className={styles["main-visual-cover"]}></div>
                 </div>
-                <div
-                  className={styles["swiper-slide"] + " " + styles["slide-3"]}
-                >
-                  <div className={styles["container-1360"]}>
-                    <div className={styles["main-visual-tit"]}>
+                <div className={styles["main-visual-cover"]}></div>
+              </SwiperSlide>
+              <SwiperSlide className={styles["slide-3"]}>
+                <div className="container-1360">
+                  <div className={styles["main-visual-tit"]}>
+                    <div>
                       <h3>
                         <span>
                           <span className={styles["text-en"]}>
@@ -178,15 +210,16 @@ export default function Home() {
                       </p>
                     </div>
                   </div>
-                  <div className={styles["main-visual-cover"]}></div>
                 </div>
-              </div>
-            </div>
+                <div className={styles["main-visual-cover"]}></div>
+              </SwiperSlide>
+            </Swiper>
             <div className={styles["main-visual-indicator"]}>
               <div className={styles["indicator-circle"]}>
                 <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                   <circle className={styles["track"]} cx="60" cy="60" r="54" />
                   <circle
+                    ref={progressRef}
                     className={styles["progress"]}
                     cx="60"
                     cy="60"
@@ -194,9 +227,13 @@ export default function Home() {
                   />
                 </svg>
               </div>
-              <div className={styles["indicator-num"]}>
-                <span className={styles["current"]}>01</span>
-                <span className={styles["next"]}>02</span>
+              <div ref={indicatorNumRef} className={styles["indicator-num"]}>
+                <span ref={currentSpanRef} className={styles["current"]}>
+                  01
+                </span>
+                <span ref={nextSpanRef} className={styles["next"]}>
+                  02
+                </span>
               </div>
             </div>
             <div className={styles["scroll-hint"]}>
@@ -208,32 +245,28 @@ export default function Home() {
           </div>
         </section>
         <section className={styles["section"] + " " + styles["sc__main-intro"]}>
-          <div className={styles["sc-inner"]}>
-            <div className={styles["container-1360"] + " " + styles["df"]}>
+          <div className="sc-inner">
+            <div className="container-1360 df">
               <div className={styles["intro-img-wrap"]}>
                 <div className={styles["intro-img-inner"]}></div>
               </div>
               <div className={styles["intro-txt-wrap"]}>
                 <div className={styles["main-sc-tit-wrap"]}>
                   <div>
-                    <span className={styles["np"]}>
-                      Advanced Injury & DISC Center
-                    </span>
-                    <h3 className={styles["tit"]}>Meet the Doctor</h3>
+                    <span className="np">Advanced Injury & DISC Center</span>
+                    <h3 className="tit">Meet the Doctor</h3>
                   </div>
-                  <div className={styles["desc"]}>
-                    <p className={styles["bold"]}>Dr.Park</p>
+                  <div className="desc">
+                    <p className="bold">Dr.Park</p>
                     <p>
                       At{" "}
-                      <span className={styles["bold"]}>
+                      <span className="bold">
                         Advanced Injury & DISC Center
                       </span>
                       , we are committed to helping patients recover from pain
                       and injury through chiropractic care,{" "}
-                      <span className={styles["bold"]}>
-                        auto injury rehabilitation
-                      </span>
-                      , non-surgical spinal decompression, and advanced soft
+                      <span className="bold">auto injury rehabilitation</span>,
+                      non-surgical spinal decompression, and advanced soft
                       tissue therapy.
                     </p>
                     <p>
@@ -261,23 +294,17 @@ export default function Home() {
           className={styles["section"] + " " + styles["sc__main-subject"]}
         >
           <span className={styles["bg"]}></span>
-          <div
-            className={
-              styles["sc-inner"] + " " + styles["pd"] + " " + styles["df"]
-            }
-          >
+          <div className="sc-inner pd df">
             <div className={styles["subject-txt-wrap"]}>
               <div className={styles["main-sc-tit-wrap"]}>
                 <div>
-                  <span className={styles["np"]}>
-                    Advanced Injury & DISC Center
-                  </span>
-                  <h3 className={styles["tit"]}>
-                    Our Approach <br className={styles["none-960"]} />
+                  <span className="np">Advanced Injury & DISC Center</span>
+                  <h3 className="tit">
+                    Our Approach <br className="none-960" />
                     to Treatment
                   </h3>
                 </div>
-                <div className={styles["desc"]}>
+                <div className="desc">
                   <p>
                     Our goal is to treat the root cause of your discomfort—not
                     just the symptoms—while guiding you toward a healthier,
@@ -295,13 +322,9 @@ export default function Home() {
               </div>
             </div>
             <div className={styles["subject-con-wrap"]}>
-              <div
-                className={
-                  styles["swiper"] + " " + styles["main-subject-swiper"]
-                }
-              >
-                <div className={styles["swiper-wrapper"]}>
-                  <div className={styles["swiper-slide"]}>
+              <div className={"swiper main-subject-swiper"}>
+                <div className="swiper-wrapper">
+                  <div className="swiper-slide">
                     <div className={styles["subject-item-inner"]}>
                       <div className={styles["image"]}>
                         <Image
@@ -312,11 +335,11 @@ export default function Home() {
                         />
                       </div>
                       <div className={styles["text"]}>
-                        <span className={styles["bold"]}>Auto Injury</span>
+                        <span className="bold">Auto Injury</span>
                       </div>
                     </div>
                   </div>
-                  <div className={styles["swiper-slide"]}>
+                  <div className="swiper-slide">
                     <div className={styles["subject-item-inner"]}>
                       <div className={styles["image"]}>
                         <Image
@@ -327,11 +350,11 @@ export default function Home() {
                         />
                       </div>
                       <div className={styles["text"]}>
-                        <span className={styles["bold"]}>Disc Herniated</span>
+                        <span className="bold">Disc Herniated</span>
                       </div>
                     </div>
                   </div>
-                  <div className={styles["swiper-slide"]}>
+                  <div className="swiper-slide">
                     <div className={styles["subject-item-inner"]}>
                       <div className={styles["image"]}>
                         <Image
@@ -342,11 +365,11 @@ export default function Home() {
                         />
                       </div>
                       <div className={styles["text"]}>
-                        <span className={styles["bold"]}>Sports Injury</span>
+                        <span className="bold">Sports Injury</span>
                       </div>
                     </div>
                   </div>
-                  <div className={styles["swiper-slide"]}>
+                  <div className="swiper-slide">
                     <div className={styles["subject-item-inner"]}>
                       <div className={styles["image"]}>
                         <Image
@@ -357,11 +380,11 @@ export default function Home() {
                         />
                       </div>
                       <div className={styles["text"]}>
-                        <span className={styles["bold"]}>Neck Pain</span>
+                        <span className="bold">Neck Pain</span>
                       </div>
                     </div>
                   </div>
-                  <div className={styles["swiper-slide"]}>
+                  <div className="swiper-slide">
                     <div className={styles["subject-item-inner"]}>
                       <div className={styles["image"]}>
                         <Image
@@ -372,11 +395,11 @@ export default function Home() {
                         />
                       </div>
                       <div className={styles["text"]}>
-                        <span className={styles["bold"]}>Knee Pain</span>
+                        <span className="bold">Knee Pain</span>
                       </div>
                     </div>
                   </div>
-                  <div className={styles["swiper-slide"]}>
+                  <div className="swiper-slide">
                     <div className={styles["subject-item-inner"]}>
                       <div className={styles["image"]}>
                         <Image
@@ -387,11 +410,11 @@ export default function Home() {
                         />
                       </div>
                       <div className={styles["text"]}>
-                        <span className={styles["bold"]}>Low Back Pain</span>
+                        <span className="bold">Low Back Pain</span>
                       </div>
                     </div>
                   </div>
-                  <div className={styles["swiper-slide"]}>
+                  <div className="swiper-slide">
                     <div className={styles["subject-item-inner"]}>
                       <div className={styles["image"]}>
                         <Image
@@ -402,11 +425,11 @@ export default function Home() {
                         />
                       </div>
                       <div className={styles["text"]}>
-                        <span className={styles["bold"]}>Sciatica</span>
+                        <span className="bold">Sciatica</span>
                       </div>
                     </div>
                   </div>
-                  <div className={styles["swiper-slide"]}>
+                  <div className="swiper-slide">
                     <div className={styles["subject-item-inner"]}>
                       <div className={styles["image"]}>
                         <Image
@@ -417,11 +440,11 @@ export default function Home() {
                         />
                       </div>
                       <div className={styles["text"]}>
-                        <span className={styles["bold"]}>Shoulder Pain</span>
+                        <span className="bold">Shoulder Pain</span>
                       </div>
                     </div>
                   </div>
-                  <div className={styles["swiper-slide"]}>
+                  <div className="swiper-slide">
                     <div className={styles["subject-item-inner"]}>
                       <div className={styles["image"]}>
                         <Image
@@ -432,19 +455,11 @@ export default function Home() {
                         />
                       </div>
                       <div className={styles["text"]}>
-                        <span className={styles["bold"]}>Hip Pain</span>
+                        <span className="bold">Hip Pain</span>
                       </div>
                     </div>
                   </div>
-                  <div
-                    className={
-                      styles["swiper-slide"] +
-                      " " +
-                      styles["blank-slide"] +
-                      " " +
-                      styles["none-960"]
-                    }
-                  ></div>
+                  <div className={"swiper-slide blank-slide none-960"}></div>
                 </div>
               </div>
             </div>
@@ -453,19 +468,17 @@ export default function Home() {
         <section
           className={styles["section"] + " " + styles["sc__main-equipment"]}
         >
-          <div className={styles["sc-inner"] + " " + styles["pd"]}>
-            <div className={styles["container-1360"]}>
+          <div className="sc-inner pd">
+            <div className="container-1360">
               <div className={styles["equip-txt-wrap"]}>
                 <div
                   className={styles["main-sc-tit-wrap"] + " " + styles["g-0"]}
                 >
-                  <span className={styles["np"]}>
-                    Advanced Injury & DISC Center
-                  </span>
-                  <div className={styles["df"]}>
-                    <div className={styles["df-item"]}>
-                      <h3 className={styles["tit"]}>Specialized Equipment</h3>
-                      <div className={styles["desc"]}>
+                  <span className="np">Advanced Injury & DISC Center</span>
+                  <div className="df">
+                    <div className="df-item">
+                      <h3>Specialized Equipment</h3>
+                      <div className="desc">
                         <p>
                           To ensure the highest standard of care, we utilize
                           state-of-the-art equipment and provide personalized
@@ -568,13 +581,13 @@ export default function Home() {
             <span>Advanced Injury & DISC Center</span>
             <span>Advanced Injury & DISC Center</span>
           </div>
-          <div className={styles["sc-inner"] + " " + styles["pd"]}>
-            <div className={styles["container-1360"]}>
+          <div className="sc-inner pd">
+            <div className="container-1360">
               <div className={styles["technique-txt-wrap"]}>
                 <div
                   className={styles["main-sc-tit-wrap"] + " " + styles["g-0"]}
                 >
-                  <h3 className={styles["tit"]}>Special treatment technique</h3>
+                  <h3>Special treatment technique</h3>
                 </div>
               </div>
               <div className={styles["technique-con-wrap"]}>
@@ -584,13 +597,9 @@ export default function Home() {
                   </button>
                   <button className={styles["main-technique-btn"]}>CFR</button>
                 </div>
-                <div
-                  className={
-                    styles["swiper"] + " " + styles["main-technique-swiper"]
-                  }
-                >
-                  <div className={styles["swiper-wrapper"]}>
-                    <div className={styles["swiper-slide"]}>
+                <div className={"swiper main-technique-swiper"}>
+                  <div className="swiper-wrapper">
+                    <div className="swiper-slide">
                       <div className={styles["technique-cnt-inner"]}>
                         <div className={styles["text"]}>
                           <strong>Ring Dinger&reg;</strong>
@@ -613,7 +622,7 @@ export default function Home() {
                         </div>
                         <div className={styles["image"]}>
                           <video
-                            src="/assets/img/pages/main/technique_video_01.mp4"
+                            src="/images/pages/main/technique_video_01.mp4"
                             autoPlay
                             muted
                             loop
@@ -622,7 +631,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    <div className={styles["swiper-slide"]}>
+                    <div className="swiper-slide">
                       <div className={styles["technique-cnt-inner"]}>
                         <div className={styles["text"]}>
                           <strong>
@@ -648,7 +657,7 @@ export default function Home() {
                         </div>
                         <div className={styles["image"]}>
                           <video
-                            src="/assets/img/pages/main/technique_video_02.mp4"
+                            src="/images/pages/main/technique_video_02.mp4"
                             autoPlay
                             muted
                             loop
@@ -664,8 +673,8 @@ export default function Home() {
           </div>
         </section>
         <section className={styles["section"] + " " + styles["sc__main-news"]}>
-          <div className={styles["sc-inner"] + " " + styles["pd"]}>
-            <div className={styles["container-1360"]}>
+          <div className="sc-inner pd">
+            <div className="container-1360">
               <div className={styles["news-txt-wrap"]}>
                 <div
                   className={
@@ -678,17 +687,13 @@ export default function Home() {
                     styles["g-0"]
                   }
                 >
-                  <h3 className={styles["tit"]}>Community</h3>
+                  <h3>Community</h3>
                 </div>
               </div>
               <div className={styles["news-con-wrap"]}>
-                <div
-                  className={
-                    styles["swiper"] + " " + styles["main-news-swiper"]
-                  }
-                >
-                  <div className={styles["swiper-wrapper"]}>
-                    <div className={styles["swiper-slide"]}>
+                <div className={"swiper main-news-swiper"}>
+                  <div className="swiper-wrapper">
+                    <div className="swiper-slide">
                       <div className={styles["news-item-inner"]}>
                         <div className={styles["image"]}>
                           <Image
@@ -700,22 +705,14 @@ export default function Home() {
                         </div>
                         <div className={styles["text"]}>
                           <strong>
-                            2025 TOP DOCTORS,{" "}
-                            <br className={styles["block-500"]} /> JANURY 2025
+                            2025 TOP DOCTORS, <br className="block-500" />{" "}
+                            JANURY 2025
                           </strong>
                           <p>DR. HYUNG JOON PARK, DC</p>
                           <div className={styles["download-btn-wrap"]}>
-                            <button
-                              className={
-                                styles["download-btn"] +
-                                " " +
-                                styles["img-dl-btn"]
-                              }
-                            >
-                              <span className={styles["btn-txt"]}>
-                                Image Viewer
-                              </span>
-                              <span className={styles["btn-icon"]}>
+                            <button className={"download-btn img-dl-btn"}>
+                              <span className="btn-txt">Image Viewer</span>
+                              <span className="btn-icon">
                                 <Image
                                   src="/images/common/icon/download-image.svg"
                                   alt="Download Image Icon"
@@ -727,12 +724,10 @@ export default function Home() {
                             <a
                               href="/images/pages/main/news_detail_img01.png"
                               download="2025 TOP DOCTORS, JANURY 2025.png"
-                              className={styles["download-btn"]}
+                              className="download-btn"
                             >
-                              <span className={styles["btn-txt"]}>
-                                Download
-                              </span>
-                              <span className={styles["btn-icon"]}>
+                              <span className="btn-txt">Download</span>
+                              <span className="btn-icon">
                                 <Image
                                   src="/images/common/icon/download.svg"
                                   alt="Download Icon"
@@ -745,7 +740,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    <div className={styles["swiper-slide"]}>
+                    <div className="swiper-slide">
                       <div className={styles["news-item-inner"]}>
                         <div className={styles["image"]}>
                           <Image
@@ -763,17 +758,9 @@ export default function Home() {
                           </strong>
                           <p>DR. HYUNG JOON PARK, DC</p>
                           <div className={styles["download-btn-wrap"]}>
-                            <button
-                              className={
-                                styles["download-btn"] +
-                                " " +
-                                styles["img-dl-btn"]
-                              }
-                            >
-                              <span className={styles["btn-txt"]}>
-                                Image Viewer
-                              </span>
-                              <span className={styles["btn-icon"]}>
+                            <button className={"download-btn img-dl-btn"}>
+                              <span className="btn-txt">Image Viewer</span>
+                              <span className="btn-icon">
                                 <Image
                                   src="/images/common/icon/download-image.svg"
                                   alt="Download Image Icon"
@@ -785,12 +772,10 @@ export default function Home() {
                             <a
                               href="/images/pages/main/news_detail_img02.png"
                               download="2022's BEST SPINAL DECOMPTECTION DOCTORS IN AMERICA.png"
-                              className={styles["download-btn"]}
+                              className="download-btn"
                             >
-                              <span className={styles["btn-txt"]}>
-                                Download
-                              </span>
-                              <span className={styles["btn-icon"]}>
+                              <span className="btn-txt">Download</span>
+                              <span className="btn-icon">
                                 <Image
                                   src="/images/common/icon/download.svg"
                                   alt="Download Icon"
@@ -803,7 +788,7 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    <div className={styles["swiper-slide"]}>
+                    <div className="swiper-slide">
                       <div className={styles["news-item-inner"]}>
                         <div className={styles["image"]}>
                           <Image
@@ -820,17 +805,9 @@ export default function Home() {
                           </strong>
                           <p>DR. HYUNG JOON PARK, DC</p>
                           <div className={styles["download-btn-wrap"]}>
-                            <button
-                              className={
-                                styles["download-btn"] +
-                                " " +
-                                styles["img-dl-btn"]
-                              }
-                            >
-                              <span className={styles["btn-txt"]}>
-                                Image Viewer
-                              </span>
-                              <span className={styles["btn-icon"]}>
+                            <button className={"download-btn img-dl-btn"}>
+                              <span className="btn-txt">Image Viewer</span>
+                              <span className="btn-icon">
                                 <Image
                                   src="/images/common/icon/download-image.svg"
                                   alt="Download Image Icon"
@@ -842,12 +819,10 @@ export default function Home() {
                             <a
                               href="/images/pages/main/news_detail_img03.png"
                               download="2022's BEST NEUROPATHY PHYSICIANS IN AMERICA.png"
-                              className={styles["download-btn"]}
+                              className="download-btn"
                             >
-                              <span className={styles["btn-txt"]}>
-                                Download
-                              </span>
-                              <span className={styles["btn-icon"]}>
+                              <span className="btn-txt">Download</span>
+                              <span className="btn-icon">
                                 <Image
                                   src="/images/common/icon/download.svg"
                                   alt="Download Icon"
@@ -862,16 +837,8 @@ export default function Home() {
                     </div>
                   </div>
                   <div className={styles["news-swiper-btns"]}>
-                    <div
-                      className={
-                        styles["news-swiper-btn-prev"] + " " + styles["c-btn"]
-                      }
-                    ></div>
-                    <div
-                      className={
-                        styles["news-swiper-btn-next"] + " " + styles["c-btn"]
-                      }
-                    ></div>
+                    <div className={"news-swiper-btn-prev c-btn"}></div>
+                    <div className={"news-swiper-btn-next c-btn"}></div>
                   </div>
                 </div>
               </div>

@@ -1,0 +1,288 @@
+/* 
+** 퀵바 공통
+ */
+.quick-link-item a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.link-icon {
+  width: 5rem;
+  height: 5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: var(--color-primary-dark);
+}
+
+.quick-link-call .link-icon img {
+  width: 54%;
+}
+
+.quick-link-online .link-icon img {
+  width: 45%;
+}
+
+.quick-link-email .link-icon img {
+  width: 54%;
+}
+
+.quick-link-location .link-icon img {
+  width: 50%;
+}
+
+/* 
+  ** PC 버전 퀵바 (>768px) 
+  */
+#quickBarPc {
+  position: fixed;
+  z-index: 999;
+  bottom: 24%;
+  right: 3.6%;
+
+  width: 9rem;
+
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    var(--Primary-Light, #64a1c4) 0%,
+    #3276a1 100%
+  );
+  box-shadow: 0 0.3rem 0.8rem 0.1rem rgba(25, 67, 80, 0.3);
+
+  font-size: 1.4rem;
+  color: #fff;
+  text-align: center;
+
+  transition: bottom 0.7s ease;
+}
+
+#quickBarPc:lang(en) {
+  font-size: 1.3rem;
+}
+
+#quickBarPc .quick-link-list-wrap {
+  overflow: hidden;
+}
+
+#quickBarPc .quick-link-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+
+  padding: 3rem 0;
+}
+
+#quickBarPc .quick-bar-btn-warp {
+  width: 9rem;
+  height: 9rem;
+}
+
+#quickBarPc .btn-toggle__quick-bar {
+  position: relative;
+
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+#quickBarPc .btn-toggle__quick-bar .btn-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+  transform: scale(0.9);
+
+  transition: all 0.3s ease;
+}
+
+#quickBarPc .btn-toggle__quick-bar .btn-icon.on {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+  transform: scale(1);
+
+  transition: all 0.3s ease;
+}
+
+#quickBarPc .btn-toggle__quick-bar:hover .btn-icon {
+  background: rgba(121, 222, 253, 0.3);
+}
+
+#quickBarPc .btn-toggle__quick-bar .btn-close-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#quickBarPc .btn-toggle__quick-bar .btn-close-icon img {
+  width: 2.4rem;
+}
+
+#quickBarPc .btn-toggle__quick-bar .btn-open-icon img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 42%;
+
+  animation: flash 3.4s infinite;
+}
+
+@keyframes flash {
+  0%,
+  50%,
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  25% {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  }
+}
+
+#quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(1) {
+  animation-delay: 0s;
+}
+
+#quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+#quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+#quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+#quickBarPc.scrolled {
+  bottom: 6%;
+}
+
+/* 
+  ** 모바일 버전 퀵바 (<=768px)
+   */
+#quickBarMobile {
+  position: fixed;
+  z-index: 999;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(38, 89, 124, 0.95);
+  border-radius: 2rem 2rem 0 0;
+  transform: translate(0, 100%);
+
+  transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+#quickBarMobile .quick-link-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#quickBarMobile .quick-link-item {
+  position: relative;
+  flex: 1;
+  padding: 1.4rem 0;
+
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+#quickBarMobile .quick-link-item + .quick-link-item:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, 0);
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#quickBarMobile .link-icon {
+  background: var(--color-primary);
+}
+
+#quickBarMobile .btn-toggle__quick-bar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  text-transform: uppercase;
+
+  border-radius: 10px 10px 0px 0px;
+  background: linear-gradient(
+    180deg,
+    var(--Primary-Light, #64a1c4) 0%,
+    #3276a1 100%
+  );
+
+  font-family: var(--font-poppins);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-align: center;
+
+  padding: 0.4em 1.2em 0.2em;
+}
+
+#quickBarMobile.is-open {
+  transform: translate(0, 0);
+}
+
+/* 
+  ** 반응형
+   */
+#quickBarPc {
+  display: block;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+#quickBarMobile {
+  display: none;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  #quickBarPc {
+    display: none;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  #quickBarMobile {
+    display: block;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
