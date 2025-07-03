@@ -12,6 +12,7 @@
   height: var(--header-height);
   overflow: hidden;
 }
+
 .type5 .header_inner {
   position: relative;
   height: var(--header-height);

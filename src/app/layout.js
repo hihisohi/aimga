@@ -2,8 +2,8 @@ import "@/styles/reset.css";
 import "./globals.css";
 import "/public/fonts/font.css";
 
-import Header from "@/components/Layout/Header";
-import Footer from "@/components/Layout/Footer";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 export const metadata = {
   title: "Advanced Injury & DISC Center",

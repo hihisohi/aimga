@@ -1,0 +1,220 @@
+/* 
+** SECTION :: main-subject
+ */
+.sc__main-subject {
+  position: relative;
+  background: #f7f7f7;
+}
+
+.main-sc-tit-wrap-custom {
+  padding-left: 30%;
+  padding-right: 18%;
+}
+
+.sc__main-subject .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/images/pages/main/subject_bg.png") no-repeat 50% 100% /
+    1920px 100%;
+}
+
+.sc__main-subject .sc-inner-custom {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subject-txt-wrap {
+  /* width: 46%; */
+}
+
+.subject-con-wrap {
+  width: 54%;
+  max-width: 1536px;
+  overflow: hidden;
+}
+
+.main-subject-swiper {
+  width: calc(35rem * 2 + 4rem * 2);
+  margin: 0;
+  overflow: visible;
+}
+
+.main-subject-swiper :global(.swiper-slide) {
+  width: 35rem;
+  padding: 4rem 0;
+  margin-right: 4rem;
+
+  user-select: none; /* 텍스트 선택 방지 */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE/Edge */
+}
+
+.main-subject-swiper .subject-item-inner {
+  position: relative;
+}
+
+.main-subject-swiper .subject-item-inner .image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 3rem;
+  overflow: hidden;
+  box-shadow: 2rem 2rem 3rem 0px rgba(0, 0, 0, 0.12);
+
+  transition: all 0.6s;
+}
+
+.main-subject-swiper .subject-item-inner .image:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    0deg,
+    rgba(100, 161, 196, 0.8) 0%,
+    rgba(100, 161, 196, 0.8) 100%
+  );
+  opacity: 0;
+
+  transition: all 0.6s;
+}
+
+.main-subject-swiper .subject-item-inner .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+
+  transition: all 0.6s;
+}
+
+.main-subject-swiper .subject-item-inner .text {
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  transform: translate(-50%, 0%);
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.5s ease;
+}
+
+.main-subject-swiper .subject-item-inner .text:lang(en) {
+  bottom: 10%;
+}
+
+.main-subject-swiper .subject-item-inner .text span {
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
+
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.main-subject-swiper .subject-item-inner .text span.bold {
+  font-size: 2.8rem;
+}
+
+.main-subject-swiper :global(.swiper-slide-active) .subject-item-inner .text {
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+}
+
+.main-subject-swiper :global(.swiper-slide-active) .subject-item-inner .image {
+  border-radius: 35rem;
+  transition: all 0.6s;
+}
+
+.main-subject-swiper
+  :global(.swiper-slide-active)
+  .subject-item-inner
+  .image:after {
+  opacity: 1;
+  transition: all 0.6s;
+}
+
+.main-subject-swiper :global(.swiper-slide-next) .subject-item-inner .image img,
+.main-subject-swiper
+  :global(.swiper-slide-active)
+  .subject-item-inner
+  .image
+  img {
+  opacity: 1;
+  transition: all 0.6s;
+}
+
+@media (max-width: 1440px) {
+  .main-sc-tit-wrap-custom {
+    padding-left: 18%;
+  }
+}
+
+@media (max-width: 960px) {
+  .sc__main-subject {
+    padding-top: 12rem;
+  }
+
+  .sc__main-subject .bg {
+    background-size: 1440px 100%;
+    background-position: 20% 100%;
+  }
+
+  .sc__main-subject .sc-inner-custom {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .main-sc-tit-wrap-custom {
+    width: 100%;
+    max-width: 640px;
+    padding: 0;
+  }
+
+  .subject-con-wrap {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-subject-swiper {
+    width: 35rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-sc-tit-wrap-custom {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .main-subject-swiper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .main-subject-swiper :global(.swiper-slide) {
+    width: 100%;
+    margin-right: 0;
+    padding: 4rem 12%;
+  }
+
+  .main-subject-swiper
+    :global(.swiper-slide-active)
+    .subject-item-inner
+    .image {
+    border-radius: 25rem;
+  }
+}
