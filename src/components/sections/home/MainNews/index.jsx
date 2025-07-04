@@ -1,8 +1,11 @@
 import Image from "next/image";
 import styles from "./MainNews.module.css";
 import homeStyles from "../home.module.css";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-creative";
 
 export default function MainNews() {
   return (
@@ -56,9 +59,11 @@ export default function MainNews() {
                     </strong>
                     <p>DR. HYUNG JOON PARK, DC</p>
                     <div className={styles["download-btn-wrap"]}>
-                      <button className={"download-btn img-dl-btn"}>
-                        <span className="btn-txt">Image Viewer</span>
-                        <span className="btn-icon">
+                      <button
+                        className={`${styles["download-btn"]} ${styles["img-dl-btn"]}`}
+                      >
+                        <span className={styles["btn-txt"]}>Image Viewer</span>
+                        <span className={styles["btn-icon"]}>
                           <Image
                             src="/images/common/icon/download-image.svg"
                             alt="Download Image Icon"
@@ -70,10 +75,10 @@ export default function MainNews() {
                       <a
                         href="/images/pages/main/news_detail_img01.png"
                         download="2025 TOP DOCTORS, JANURY 2025.png"
-                        className="download-btn"
+                        className={styles["download-btn"]}
                       >
-                        <span className="btn-txt">Download</span>
-                        <span className="btn-icon">
+                        <span className={styles["btn-txt"]}>Download</span>
+                        <span className={styles["btn-icon"]}>
                           <Image
                             src="/images/common/icon/download.svg"
                             alt="Download Icon"
@@ -104,9 +109,11 @@ export default function MainNews() {
                     </strong>
                     <p>DR. HYUNG JOON PARK, DC</p>
                     <div className={styles["download-btn-wrap"]}>
-                      <button className={"download-btn img-dl-btn"}>
-                        <span className="btn-txt">Image Viewer</span>
-                        <span className="btn-icon">
+                      <button
+                        className={`${styles["download-btn"]} ${styles["img-dl-btn"]}`}
+                      >
+                        <span className={styles["btn-txt"]}>Image Viewer</span>
+                        <span className={styles["btn-icon"]}>
                           <Image
                             src="/images/common/icon/download-image.svg"
                             alt="Download Image Icon"
@@ -118,10 +125,10 @@ export default function MainNews() {
                       <a
                         href="/images/pages/main/news_detail_img02.png"
                         download="2022's BEST SPINAL DECOMPTECTION DOCTORS IN AMERICA.png"
-                        className="download-btn"
+                        className={styles["download-btn"]}
                       >
-                        <span className="btn-txt">Download</span>
-                        <span className="btn-icon">
+                        <span className={styles["btn-txt"]}>Download</span>
+                        <span className={styles["btn-icon"]}>
                           <Image
                             src="/images/common/icon/download.svg"
                             alt="Download Icon"
@@ -151,9 +158,11 @@ export default function MainNews() {
                     </strong>
                     <p>DR. HYUNG JOON PARK, DC</p>
                     <div className={styles["download-btn-wrap"]}>
-                      <button className={"download-btn img-dl-btn"}>
-                        <span className="btn-txt">Image Viewer</span>
-                        <span className="btn-icon">
+                      <button
+                        className={`${styles["download-btn"]} ${styles["img-dl-btn"]}`}
+                      >
+                        <span className={styles["btn-txt"]}>Image Viewer</span>
+                        <span className={styles["btn-icon"]}>
                           <Image
                             src="/images/common/icon/download-image.svg"
                             alt="Download Image Icon"
@@ -165,10 +174,10 @@ export default function MainNews() {
                       <a
                         href="/images/pages/main/news_detail_img03.png"
                         download="2022's BEST NEUROPATHY PHYSICIANS IN AMERICA.png"
-                        className="download-btn"
+                        className={styles["download-btn"]}
                       >
-                        <span className="btn-txt">Download</span>
-                        <span className="btn-icon">
+                        <span className={styles["btn-txt"]}>Download</span>
+                        <span className={styles["btn-icon"]}>
                           <Image
                             src="/images/common/icon/download.svg"
                             alt="Download Icon"
@@ -182,8 +191,12 @@ export default function MainNews() {
                 </div>
               </SwiperSlide>
               <div className={styles["news-swiper-btns"]}>
-                <div className={"news-swiper-btn-prev c-btn"}></div>
-                <div className={"news-swiper-btn-next c-btn"}></div>
+                <div
+                  className={`${styles["news-swiper-btn-prev"]} ${styles["c-btn"]}`}
+                ></div>
+                <div
+                  className={`${styles["news-swiper-btn-next"]} ${styles["c-btn"]}`}
+                ></div>
               </div>
             </Swiper>
           </div>

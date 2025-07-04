@@ -1,11 +1,11 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
-import "swiper/css";
-
 import { useEffect, useRef } from "react";
 
 import styles from "./MainVisual.module.css";
 import homeStyles from "../home.module.css";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 
 export default function MainVisual() {
   const progressRef = useRef(null);

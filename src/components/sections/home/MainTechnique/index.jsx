@@ -3,6 +3,8 @@ import homeStyles from "../home.module.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-creative";
 
 export default function MainTechnique() {
   return (
