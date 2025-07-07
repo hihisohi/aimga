@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./Header.module.css";
+import Logo from "../ui/Logo";
 
 export default function Header() {
   return (
@@ -7,27 +8,9 @@ export default function Header() {
       <header className={styles["header"] + " " + styles["type5"]}>
         <div className={styles["header_inner"]}>
           <div className={styles["flex-container"]}>
-            <h1 className={styles["header-logo"]}>
-              <a href="">
-                <span className={styles["header-logo-img"]}>
-                  <Image
-                    className={styles["default-logo"]}
-                    src="/images/common/logo/logo-en-wh.svg"
-                    alt="Advanced Injury &amp; DISC Center"
-                    width={200}
-                    height={50}
-                  />
-                  <Image
-                    className={styles["hover-logo"]}
-                    src="/images/common/logo/logo-en.svg"
-                    alt="Advanced Injury &amp; DISC Center"
-                    width={200}
-                    height={50}
-                  />
-                </span>
-                <span className="blind">Advanced Injury &amp; DISC Center</span>
-              </a>
-            </h1>
+            <div className={styles["header-logo"]}>
+              <Logo type="en-wh" href="/" />
+            </div>
             <nav className={styles["gnb"]}>
               <h2 className="blind">Menu</h2>
               <div className={styles["gnb_wrapper"]}>

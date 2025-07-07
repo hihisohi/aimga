@@ -42,6 +42,7 @@ export default function MainVisual() {
     <section className={homeStyles["sc__main-visual"]}>
       <div className="sc-inner">
         <Swiper
+          className={styles["main-visual-swiper"]}
           grabCursor={true}
           loop={true}
           speed={500}
@@ -49,7 +50,6 @@ export default function MainVisual() {
             delay: 4000,
             disableOnInteraction: false,
           }}
-          className={styles["main-visual-swiper"]}
           onInit={(swiper) => {
             const currentSlide = swiper.slides[swiper.realIndex];
             const cover = currentSlide.querySelector(

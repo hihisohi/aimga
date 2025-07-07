@@ -1,13 +1,12 @@
 import Image from "next/image";
+import styles from "./Logo.module.css";
 
 export default function Logo({
-  type = "ko", // 'ko', 'en', 'ko-wh', 'en-wh'
-  width = 120,
-  height = 40,
+  type = "en-wh", // 'ko', 'en', 'ko-wh', 'en-wh'
+  variant = "default", // 'default', 'header', 'footer', 'main', 'hero', 'sidebar'
   className = "",
-  responsive = false, // 반응형 사용 여부
-  responsiveWidth = "15vw", // 반응형 너비 (vw, vh, rem, em 등)
-  responsiveHeight = "auto", // 반응형 높이 (auto는 비율 유지)
+  href = "/",
+  alt = "Advanced Injury & DISC Center",
 }) {
   const getLogoPath = (logoType) => {
     const logoMap = {
@@ -17,26 +16,32 @@ export default function Logo({
       "en-wh": "/images/common/logo/logo-en-wh.svg",
     };
 
-    return logoMap[logoType] || logoMap["ko"];
+    return logoMap[logoType] || logoMap["en"];
   };
 
-  const containerStyle = {
-    width: responsive ? responsiveWidth : `${width}px`,
-    height: responsive ? responsiveHeight : `${height}px`,
-    position: "relative",
-  };
+  const logoImage = (
+    <Image
+      src={getLogoPath(type)}
+      alt={alt}
+      width={200}
+      height={50}
+      style={{ width: "100%", height: "100%", objectFit: "contain" }}
+    />
+  );
+
+  if (href) {
+    return (
+      <a href={href} className={`${styles.logoContainer} ${className}`}>
+        {logoImage}
+        <span className="blind">{alt}</span>
+      </a>
+    );
+  }
 
   return (
-    <div className={className} style={containerStyle}>
-      <Image
-        src={getLogoPath(type)}
-        alt={`Logo ${type}`}
-        fill={responsive}
-        width={responsive ? undefined : width}
-        height={responsive ? undefined : height}
-        style={responsive ? { objectFit: "contain" } : {}}
-        priority
-      />
+    <div className={`${styles.logoContainer} ${className}`}>
+      {logoImage}
+      <span className="blind">{alt}</span>
     </div>
   );
 }

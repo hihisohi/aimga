@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import Logo from "../ui/Logo";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -193,17 +193,7 @@ export default function Footer() {
                 <div>770-734-5460</div>
               </div>
               <div className={styles["footer-logo"]}>
-                <a href="/">
-                  <span className="footer-logo-img">
-                    <Image
-                      src="/images/common/logo/logo-en-wh.svg"
-                      alt="Advanced Injury & DISC Center"
-                      width={200}
-                      height={60}
-                    />
-                  </span>
-                  <span className="blind">Advanced Injury & DISC Center</span>
-                </a>
+                <Logo type="en-wh" href="/" />
               </div>
               <div className={styles["design-by"]}>
                 <Image

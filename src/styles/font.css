@@ -4,36 +4,33 @@
 @font-face {
   font-family: "Spoqa Han Sans Neo";
   font-weight: 100;
-  src: url("/assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Thin.woff2")
-    format("woff2");
+  src: url("/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Thin.woff2") format("woff2");
   font-display: swap;
 }
 @font-face {
   font-family: "Spoqa Han Sans Neo";
   font-weight: 300;
-  src: url("/assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Light.woff2")
-    format("woff2");
+  src: url("/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Light.woff2") format("woff2");
   font-display: swap;
 }
 @font-face {
   font-family: "Spoqa Han Sans Neo";
   font-weight: 400;
-  src: url("/assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Regular.woff2")
+  src: url("/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Regular.woff2")
     format("woff2");
   font-display: swap;
 }
 @font-face {
   font-family: "Spoqa Han Sans Neo";
   font-weight: 500;
-  src: url("/assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Medium.woff2")
+  src: url("/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Medium.woff2")
     format("woff2");
   font-display: swap;
 }
 @font-face {
   font-family: "Spoqa Han Sans Neo";
   font-weight: 700;
-  src: url("/assets/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Bold.woff2")
-    format("woff2");
+  src: url("/fonts/SpoqaHanSansNeo/SpoqaHanSansNeo-Bold.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -43,14 +40,13 @@
 @font-face {
   font-family: "AritaBuriKR";
   font-weight: 500;
-  src: url("/assets/fonts/AritaBuriKR/AritaBuriKR-Medium.woff2") format("woff2");
+  src: url("/fonts/AritaBuriKR/AritaBuriKR-Medium.woff2") format("woff2");
   font-display: swap;
 }
 @font-face {
   font-family: "AritaBuriKR";
   font-weight: 600;
-  src: url("/assets/fonts/AritaBuriKR/AritaBuriKR-SemiBold.woff2")
-    format("woff2");
+  src: url("/fonts/AritaBuriKR/AritaBuriKR-SemiBold.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -60,14 +56,14 @@
 @font-face {
   font-family: "Paperlogy";
   font-weight: 600;
-  src: url("/assets/fonts/Paperlogy/Paperlogy-6SemiBold.woff2") format("woff2");
+  src: url("/fonts/Paperlogy/Paperlogy-6SemiBold.woff2") format("woff2");
   font-display: swap;
 }
 
 @font-face {
   font-family: "Paperlogy";
   font-weight: 700;
-  src: url("/assets/fonts/Paperlogy/Paperlogy-7Bold.woff2") format("woff2");
+  src: url("/fonts/Paperlogy/Paperlogy-7Bold.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -77,8 +73,7 @@
 @font-face {
   font-family: "One Mobile Title";
   font-weight: normal;
-  src: url("/assets/fonts/OneMobileTitle/ONE Mobile Title.woff2")
-    format("woff2");
+  src: url("/fonts/OneMobileTitle/ONE Mobile Title.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -88,23 +83,21 @@
 @font-face {
   font-family: "GmarketSans";
   font-weight: 300;
-  src: url("/assets/fonts/GmarketSans/GmarketSansTTFLight.woff2")
-    format("woff2");
+  src: url("/fonts/GmarketSans/GmarketSansTTFLight.woff2") format("woff2");
   font-display: swap;
 }
 
 @font-face {
   font-family: "GmarketSans";
   font-weight: 500;
-  src: url("/assets/fonts/GmarketSans/GmarketSansTTFMedium.woff2")
-    format("woff2");
+  src: url("/fonts/GmarketSans/GmarketSansTTFMedium.woff2") format("woff2");
   font-display: swap;
 }
 
 @font-face {
   font-family: "GmarketSans";
   font-weight: 700;
-  src: url("/assets/fonts/GmarketSans/GmarketSansTTFBold.woff2") format("woff2");
+  src: url("/fonts/GmarketSans/GmarketSansTTFBold.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -116,8 +109,8 @@
   font-weight: 900;
   font-display: swap;
   src: local("Pretendard Black"),
-    url("./Pretendard/Pretendard-Black.woff2") format("woff2"),
-    url("./Pretendard/Pretendard-Black.woff") format("woff");
+    url("/fonts/Pretendard/Pretendard-Black.woff2") format("woff2"),
+    url("/fonts/Pretendard/Pretendard-Black.woff") format("woff");
 }
 
 @font-face {
@@ -125,8 +118,8 @@
   font-weight: 800;
   font-display: swap;
   src: local("Pretendard ExtraBold"),
-    url("./Pretendard/Pretendard-ExtraBold.woff2") format("woff2"),
-    url("./Pretendard/Pretendard-ExtraBold.woff") format("woff");
+    url("/fonts/Pretendard/Pretendard-ExtraBold.woff2") format("woff2"),
+    url("/fonts/Pretendard/Pretendard-ExtraBold.woff") format("woff");
 }
 
 @font-face {
@@ -134,8 +127,8 @@
   font-weight: 700;
   font-display: swap;
   src: local("Pretendard Bold"),
-    url("./Pretendard/Pretendard-Bold.woff2") format("woff2"),
-    url("./Pretendard/Pretendard-Bold.woff") format("woff");
+    url("/fonts/Pretendard/Pretendard-Bold.woff2") format("woff2"),
+    url("/fonts/Pretendard/Pretendard-Bold.woff") format("woff");
 }
 
 @font-face {
@@ -143,8 +136,8 @@
   font-weight: 600;
   font-display: swap;
   src: local("Pretendard SemiBold"),
-    url("./Pretendard/Pretendard-SemiBold.woff2") format("woff2"),
-    url("./Pretendard/Pretendard-SemiBold.woff") format("woff");
+    url("/fonts/Pretendard/Pretendard-SemiBold.woff2") format("woff2"),
+    url("/fonts/Pretendard/Pretendard-SemiBold.woff") format("woff");
 }
 
 @font-face {
@@ -152,8 +145,8 @@
   font-weight: 500;
   font-display: swap;
   src: local("Pretendard Medium"),
-    url("./Pretendard/Pretendard-Medium.woff2") format("woff2"),
-    url("./Pretendard/Pretendard-Medium.woff") format("woff");
+    url("/fonts/Pretendard/Pretendard-Medium.woff2") format("woff2"),
+    url("/fonts/Pretendard/Pretendard-Medium.woff") format("woff");
 }
 
 @font-face {
@@ -161,8 +154,8 @@
   font-weight: 400;
   font-display: swap;
   src: local("Pretendard Regular"),
-    url("./Pretendard/Pretendard-Regular.woff2") format("woff2"),
-    url("./Pretendard/Pretendard-Regular.woff") format("woff");
+    url("/fonts/Pretendard/Pretendard-Regular.woff2") format("woff2"),
+    url("/fonts/Pretendard/Pretendard-Regular.woff") format("woff");
 }
 
 @font-face {
@@ -170,8 +163,8 @@
   font-weight: 300;
   font-display: swap;
   src: local("Pretendard Light"),
-    url("./Pretendard/Pretendard-Light.woff2") format("woff2"),
-    url("./Pretendard/Pretendard-Light.woff") format("woff");
+    url("/fonts/Pretendard/Pretendard-Light.woff2") format("woff2"),
+    url("/fonts/Pretendard/Pretendard-Light.woff") format("woff");
 }
 
 @font-face {
@@ -179,8 +172,8 @@
   font-weight: 200;
   font-display: swap;
   src: local("Pretendard ExtraLight"),
-    url("./Pretendard/Pretendard-ExtraLight.woff2") format("woff2"),
-    url("./Pretendard/Pretendard-ExtraLight.woff") format("woff");
+    url("/fonts/Pretendard/Pretendard-ExtraLight.woff2") format("woff2"),
+    url("/fonts/Pretendard/Pretendard-ExtraLight.woff") format("woff");
 }
 
 @font-face {
@@ -188,8 +181,8 @@
   font-weight: 100;
   font-display: swap;
   src: local("Pretendard Thin"),
-    url("./Pretendard/Pretendard-Thin.woff2") format("woff2"),
-    url("./Pretendard/Pretendard-Thin.woff") format("woff");
+    url("/fonts/Pretendard/Pretendard-Thin.woff2") format("woff2"),
+    url("/fonts/Pretendard/Pretendard-Thin.woff") format("woff");
 }
 
 /* 
@@ -200,12 +193,12 @@
   font-weight: 400;
   font-display: swap;
   src: local("NEXON Lv1 Gothic"),
-    url("./NEXON_Lv1_Gothic/NEXONLv1GothicRegular.woff2") format("woff2");
+    url("/fonts/NEXON_Lv1_Gothic/NEXONLv1GothicRegular.woff2") format("woff2");
 }
 @font-face {
   font-family: "NEXON Lv1 Gothic";
   font-weight: 700;
   font-display: swap;
   src: local("NEXON Lv1 Gothic"),
-    url("./NEXON_Lv1_Gothic/NEXONLv1GothicBold.woff2") format("woff2");
+    url("/fonts/NEXON_Lv1_Gothic/NEXONLv1GothicBold.woff2") format("woff2");
 }
