@@ -4,8 +4,9 @@ import styles from "./MainVisual.module.css";
 import homeStyles from "../home.module.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, EffectFade } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/effect-fade";
 
 export default function MainVisual() {
   const progressRef = useRef(null);
@@ -39,26 +40,22 @@ export default function MainVisual() {
   }, []);
 
   return (
-    <section className={homeStyles["sc__main-visual"]}>
+    <section
+      className={`${homeStyles["section"]} ${styles["sc__main-visual"]}`}
+    >
       <div className="sc-inner">
         <Swiper
           className={styles["main-visual-swiper"]}
           grabCursor={true}
+          effect={"fade"}
           loop={true}
           speed={500}
           autoplay={{
             delay: 4000,
             disableOnInteraction: false,
           }}
+          modules={[Autoplay, EffectFade]}
           onInit={(swiper) => {
-            const currentSlide = swiper.slides[swiper.realIndex];
-            const cover = currentSlide.querySelector(
-              `.${styles["main-visual-cover"]}`
-            );
-            if (cover) {
-              cover.style.opacity = 0;
-            }
-
             // 메인 비주얼 인디케이터
             if (progressRef.current) {
               resetProgress(progressRef.current);
@@ -106,29 +103,27 @@ export default function MainVisual() {
               startProgress(progressRef.current);
             }
           }}
-          modules={[Autoplay]}
         >
           <SwiperSlide className={styles["slide-1"]}>
             <div className="container-1360">
               <div className={styles["main-visual-tit"]}>
                 <div>
                   <h3>
-                    <span>
+                    <span className={styles["data-slide-up"]}>
                       <span className={styles["text-en"]}>
                         26 Years of Excellence
                       </span>
                     </span>
                     <span
-                      className={
-                        styles["bold"] + " " + styles["slide-up-wrapper"]
-                      }
+                      className={`bold ${styles["slide-up-wrapper"]} ${styles["data-slide-up"]}`}
+                      data-delay="0.2"
                     >
                       <span>
                         Advanced Injury & <br /> DISC Center
                       </span>
                     </span>
                   </h3>
-                  <p>
+                  <p className={styles["data-slide-up"]} data-delay="0.4">
                     <span>
                       Our goal is to treat the root cause of your discomfort—not{" "}
                       <br />
@@ -146,23 +141,22 @@ export default function MainVisual() {
               <div className={styles["main-visual-tit"]}>
                 <div>
                   <h3>
-                    <span>
+                    <span className={styles["data-slide-up"]}>
                       <span className={styles["text-en"]}>
                         Reviving Your Disc, <br />
                         Renewing Your Life.
                       </span>
                     </span>
                     <span
-                      className={
-                        styles["bold"] + " " + styles["slide-up-wrapper"]
-                      }
+                      className={`bold ${styles["slide-up-wrapper"]} ${styles["data-slide-up"]}`}
+                      data-delay="0.2"
                     >
                       <span>
                         Most innovative chiropractic technologies and techniques
                       </span>
                     </span>
                   </h3>
-                  <p>
+                  <p className={styles["data-slide-up"]} data-delay="0.4">
                     <span>
                       available to create highly personalized care plans
                       tailored <br />
@@ -179,16 +173,15 @@ export default function MainVisual() {
               <div className={styles["main-visual-tit"]}>
                 <div>
                   <h3>
-                    <span>
+                    <span className={styles["data-slide-up"]}>
                       <span className={styles["text-en"]}>
                         Expert Care for Every Injury, <br />
                         Every DISC, & Every Time.
                       </span>
                     </span>
                     <span
-                      className={
-                        styles["bold"] + " " + styles["slide-up-wrapper"]
-                      }
+                      className={`bold ${styles["slide-up-wrapper"]} ${styles["data-slide-up"]}`}
+                      data-delay="0.2"
                     >
                       <span>
                         We provide <br />
@@ -196,7 +189,7 @@ export default function MainVisual() {
                       </span>
                     </span>
                   </h3>
-                  <p>
+                  <p className={styles["data-slide-up"]} data-delay="0.4">
                     <span>
                       from those needing post-auto injury care to weekend
                       warriors, <br />

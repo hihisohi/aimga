@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ScrollProvider } from "@/components/ScrollProvider";
+import ViewportHeightHandler from "@/components/ViewportHeightHandler";
 
 export const metadata = {
   title: "Advanced Injury & DISC Center",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body cz-shortcut-listen="true">
+        <ViewportHeightHandler />
         <ScrollProvider>
           <Header />
           {children}

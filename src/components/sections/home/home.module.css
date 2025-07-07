@@ -120,16 +120,6 @@
   transform: translate(25%, 0);
 }
 
-@media (max-width: 1600px) {
-  .main-visual-tit h3 {
-    font-size: 5.6rem;
-  }
-
-  .main-visual-tit h3 .text-en {
-    font-size: 5.4rem;
-  }
-}
-
 @media (max-width: 1024px) {
   .main-sc-tit-wrap .desc {
     font-size: 1.9rem;
@@ -140,12 +130,8 @@
   }
 }
 
-@media (max-width: 768px) {
-  .main-visual-tit h3 {
-    font-size: 5rem;
-  }
-
-  .main-visual-tit h3 .text-en {
-    font-size: 4.8rem;
+@media (max-width: 500px) {
+  .main-sc-tit-wrap h3 {
+    font-size: 3.6rem;
   }
 }

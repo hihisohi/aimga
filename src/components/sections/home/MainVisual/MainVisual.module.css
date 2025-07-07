@@ -131,12 +131,12 @@
 }
 
 .main-visual-swiper,
-.main-visual-swiper .swiper-slide {
+.main-visual-swiper :global(.swiper-slide) {
   width: 100%;
   height: 100%;
 }
 
-.main-visual-swiper .container-1360 {
+.main-visual-swiper :global(.container-1360) {
   height: 100%;
 
   display: flex;
@@ -178,7 +178,7 @@
   color: #fff;
 }
 
-.main-visual-swiper .swiper-slide {
+.main-visual-swiper :global(.swiper-slide) {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: cover;
@@ -214,33 +214,43 @@
   transition: opacity 1.4s ease;
 }
 
-.swiper-slide-active .main-visual-cover {
+:global(.swiper-slide-active) .main-visual-cover {
   opacity: 0;
 }
 
-/* [data-slide-up] {
-    overflow: hidden;
-  }
-  
-  [data-slide-up] span {
-    display: inline-block;
-    opacity: 0;
-    transform: translateX(-14rem);
-    transition: none;
-  }
-  
-  .swiper-slide-active [data-slide-up] span {
-    opacity: 1;
-    transform: translateX(0);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  } */
+.data-slide-up {
+  overflow: hidden;
+}
 
-.swiper-slide-active [data-delay="0.2"] span {
+.data-slide-up span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-14rem);
+  transition: none;
+}
+
+:global(.swiper-slide-active) .data-slide-up span {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:global(.swiper-slide-active) .data-slide-up[data-delay="0.2"] span {
   transition-delay: 0.2s;
 }
 
-.swiper-slide-active [data-delay="0.4"] span {
+:global(.swiper-slide-active) .data-slide-up[data-delay="0.4"] span {
   transition-delay: 0.4s;
+}
+
+@media (max-width: 1600px) {
+  .main-visual-tit h3 {
+    font-size: 5.6rem;
+  }
+
+  .main-visual-tit h3 .text-en {
+    font-size: 5.4rem;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -286,5 +296,25 @@
 
   .sc__main-visual .scroll-hint {
     right: 12%;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-visual-tit h3 {
+    font-size: 5rem;
+  }
+
+  .main-visual-tit h3 .text-en {
+    font-size: 4.8rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .main-visual-tit h3 {
+    font-size: 4rem;
+  }
+
+  .main-visual-tit h3 .text-en {
+    font-size: 3.2rem;
   }
 }
