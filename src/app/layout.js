@@ -1,11 +1,14 @@
-import "@/styles/reset.css";
 import "@/styles/font.css";
+
+import "@/styles/reset.css";
 import "./globals.css";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ScrollProvider } from "@/components/ScrollProvider";
 import ViewportHeightHandler from "@/components/ViewportHeightHandler";
+import ScrollAnimationsProvider from "@/components/ScrollAnimationsProvider";
+import QuickLinkList from "@/components/layout/QuickLinkList";
 
 export const metadata = {
   title: "Advanced Injury & DISC Center",
@@ -18,9 +21,12 @@ export default function RootLayout({ children }) {
       <body cz-shortcut-listen="true">
         <ViewportHeightHandler />
         <ScrollProvider>
-          <Header />
-          {children}
-          <Footer />
+          <ScrollAnimationsProvider>
+            <Header />
+            <QuickLinkList />
+            {children}
+            <Footer />
+          </ScrollAnimationsProvider>
         </ScrollProvider>
       </body>
     </html>

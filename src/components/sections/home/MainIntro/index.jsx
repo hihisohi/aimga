@@ -3,13 +3,28 @@ import homeStyles from "../home.module.css";
 
 export default function MainIntro() {
   return (
-    <section className={`${homeStyles["section"]} ${styles["sc__main-intro"]}`}>
+    <section
+      className={`${homeStyles["section"]} ${styles["sc__main-intro"]}`}
+      data-fade-trigger
+      data-fade
+      data-fade-duration="1.4"
+    >
       <div className="sc-inner">
         <div className={`container-1360 ${styles["container-1360-custom"]}`}>
-          <div className={styles["intro-img-wrap"]}>
+          <div
+            className={styles["intro-img-wrap"]}
+            data-fade="down"
+            data-fade-distance="40"
+            data-fade-duration="0.7"
+          >
             <div className={styles["intro-img-inner"]}></div>
           </div>
-          <div className={styles["intro-txt-wrap"]}>
+          <div
+            className={styles["intro-txt-wrap"]}
+            data-fade="up"
+            data-fade-distance="40"
+            data-fade-duration="0.7"
+          >
             <div className={homeStyles["main-sc-tit-wrap"]}>
               <div>
                 <span className={homeStyles["main-sc-np"]}>

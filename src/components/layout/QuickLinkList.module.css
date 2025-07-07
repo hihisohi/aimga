@@ -40,7 +40,7 @@
 /* 
   ** PC 버전 퀵바 (>768px) 
   */
-#quickBarPc {
+.quickBarPc {
   position: fixed;
   z-index: 999;
   bottom: 24%;
@@ -63,15 +63,18 @@
   transition: bottom 0.7s ease;
 }
 
-#quickBarPc:lang(en) {
+.quickBarPc:lang(en) {
   font-size: 1.3rem;
 }
 
-#quickBarPc .quick-link-list-wrap {
+.quickBarPc .quick-link-inner {
+}
+
+.quickBarPc .quick-link-list-wrap {
   overflow: hidden;
 }
 
-#quickBarPc .quick-link-list {
+.quickBarPc .quick-link-list {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -81,12 +84,12 @@
   padding: 3rem 0;
 }
 
-#quickBarPc .quick-bar-btn-warp {
+.quickBarPc .quick-bar-btn-warp {
   width: 9rem;
   height: 9rem;
 }
 
-#quickBarPc .btn-toggle__quick-bar {
+.quickBarPc .btn-toggle__quick-bar {
   position: relative;
 
   width: 9rem;
@@ -95,7 +98,7 @@
   transition: background 0.3s ease;
 }
 
-#quickBarPc .btn-toggle__quick-bar .btn-icon {
+.quickBarPc .btn-toggle__quick-bar .btn-icon {
   position: absolute;
   top: 0;
   left: 0;
@@ -114,7 +117,7 @@
   transition: all 0.3s ease;
 }
 
-#quickBarPc .btn-toggle__quick-bar .btn-icon.on {
+.quickBarPc .btn-toggle__quick-bar .btn-icon.on {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -124,21 +127,21 @@
   transition: all 0.3s ease;
 }
 
-#quickBarPc .btn-toggle__quick-bar:hover .btn-icon {
+.quickBarPc .btn-toggle__quick-bar:hover .btn-icon {
   background: rgba(121, 222, 253, 0.3);
 }
 
-#quickBarPc .btn-toggle__quick-bar .btn-close-icon {
+.quickBarPc .btn-toggle__quick-bar .btn-close-icon {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#quickBarPc .btn-toggle__quick-bar .btn-close-icon img {
+.quickBarPc .btn-toggle__quick-bar .btn-close-icon img {
   width: 2.4rem;
 }
 
-#quickBarPc .btn-toggle__quick-bar .btn-open-icon img {
+.quickBarPc .btn-toggle__quick-bar .btn-open-icon img {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -163,30 +166,30 @@
   }
 }
 
-#quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(1) {
+.quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(1) {
   animation-delay: 0s;
 }
 
-#quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(2) {
+.quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(2) {
   animation-delay: 0.2s;
 }
 
-#quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(3) {
+.quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(3) {
   animation-delay: 0.4s;
 }
 
-#quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(4) {
+.quickBarPc .btn-toggle__quick-bar .btn-open-icon img:nth-child(4) {
   animation-delay: 0.6s;
 }
 
-#quickBarPc.scrolled {
+.quickBarPc.scrolled {
   bottom: 6%;
 }
 
 /* 
   ** 모바일 버전 퀵바 (<=768px)
    */
-#quickBarMobile {
+.quickBarMobile {
   position: fixed;
   z-index: 999;
   bottom: 0;
@@ -197,15 +200,17 @@
   transform: translate(0, 100%);
 
   transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+
+  display: none;
 }
 
-#quickBarMobile .quick-link-list {
+.quickBarMobile .quick-link-list {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-#quickBarMobile .quick-link-item {
+.quickBarMobile .quick-link-item {
   position: relative;
   flex: 1;
   padding: 1.4rem 0;
@@ -215,7 +220,7 @@
   color: #fff;
 }
 
-#quickBarMobile .quick-link-item + .quick-link-item:before {
+.quickBarMobile .quick-link-item + .quick-link-item:before {
   content: "";
   position: absolute;
   top: 0;
@@ -226,11 +231,11 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
-#quickBarMobile .link-icon {
+.quickBarMobile .link-icon {
   background: var(--color-primary);
 }
 
-#quickBarMobile .btn-toggle__quick-bar {
+.quickBarMobile .btn-toggle__quick-bar {
   position: absolute;
   top: 0;
   left: 50%;
@@ -254,33 +259,33 @@
   padding: 0.4em 1.2em 0.2em;
 }
 
-#quickBarMobile.is-open {
+.quickBarMobile.is-open {
   transform: translate(0, 0);
 }
 
 /* 
   ** 반응형
    */
-#quickBarPc {
+.quickBarPc {
   display: block;
   visibility: visible;
   pointer-events: auto;
 }
 
-#quickBarMobile {
+.quickBarMobile {
   display: none;
   visibility: hidden;
   pointer-events: none;
 }
 
 @media (max-width: 768px) {
-  #quickBarPc {
+  .quickBarPc {
     display: none;
     visibility: hidden;
     pointer-events: none;
   }
 
-  #quickBarMobile {
+  .quickBarMobile {
     display: block;
     visibility: visible;
     pointer-events: auto;

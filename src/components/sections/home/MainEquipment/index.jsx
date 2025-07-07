@@ -6,12 +6,16 @@ export default function MainEquipment() {
   return (
     <section
       className={`${homeStyles["section"]} ${styles["sc__main-equipment"]}`}
+      data-fade-trigger
     >
       <div className="sc-inner pd">
         <div className="container-1360">
           <div className={styles["equip-txt-wrap"]}>
             <div
               className={`${homeStyles["main-sc-tit-wrap"]} ${homeStyles["g-0"]}`}
+              data-fade="up"
+              data-fade-distance="40"
+              data-fade-duration="0.6"
             >
               <span className={homeStyles["main-sc-np"]}>
                 Advanced Injury & DISC Center
@@ -40,7 +44,13 @@ export default function MainEquipment() {
               </div>
             </div>
           </div>
-          <div className={styles["equip-con-wrap"]}>
+          <div
+            className={styles["equip-con-wrap"]}
+            data-fade="down"
+            data-fade-distance="40"
+            data-fade-duration="0.6"
+            data-fade-delay="0.4"
+          >
             <ul className={styles["equip-list"]}>
               <li
                 className={styles["equip-item"] + " " + styles["equip-drx9000"]}

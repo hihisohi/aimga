@@ -9,10 +9,16 @@ export default function MainSubject() {
   return (
     <section
       className={`${homeStyles["section"]} ${styles["sc__main-subject"]}`}
+      data-fade-trigger
     >
       <div className={styles["bg"]}></div>
       <div className={`sc-inner pd df ${styles["sc-inner-custom"]}`}>
-        <div className={styles["subject-txt-wrap"]}>
+        <div
+          className={styles["subject-txt-wrap"]}
+          data-fade="right"
+          data-fade-distance="60"
+          data-fade-duration="0.7"
+        >
           <div
             className={`${homeStyles["main-sc-tit-wrap"]} ${styles["main-sc-tit-wrap-custom"]}`}
           >
@@ -42,7 +48,12 @@ export default function MainSubject() {
             </div>
           </div>
         </div>
-        <div className={styles["subject-con-wrap"]}>
+        <div
+          className={styles["subject-con-wrap"]}
+          data-fade="left"
+          data-fade-distance="60"
+          data-fade-duration="0.7"
+        >
           <Swiper
             className={styles["main-subject-swiper"]}
             grabCursor={true}

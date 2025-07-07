@@ -9,17 +9,30 @@ import "swiper/css/effect-creative";
 
 export default function MainNews() {
   return (
-    <section className={homeStyles["section"] + " " + styles["sc__main-news"]}>
+    <section
+      className={homeStyles["section"] + " " + styles["sc__main-news"]}
+      data-fade-trigger
+    >
       <div className="sc-inner pd">
         <div className="container-1360">
-          <div className={styles["news-txt-wrap"]}>
+          <div
+            className={styles["news-txt-wrap"]}
+            data-fade="down"
+            data-fade-distance="40"
+            data-fade-duration="0.4"
+          >
             <div
               className={`${homeStyles["main-sc-tit-wrap"]} ${homeStyles["center"]} ${homeStyles["tac"]} ${homeStyles["g-0"]}`}
             >
               <h3 className={homeStyles["main-sc-tit"]}>Community</h3>
             </div>
           </div>
-          <div className={styles["news-con-wrap"]}>
+          <div
+            className={styles["news-con-wrap"]}
+            data-fade="up"
+            data-fade-distance="60"
+            data-fade-duration="0.4"
+          >
             <Swiper
               className={styles["main-news-swiper"]}
               grabCursor={true}
