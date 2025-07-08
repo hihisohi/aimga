@@ -9,6 +9,7 @@ import { ScrollProvider } from "@/components/ScrollProvider";
 import ViewportHeightHandler from "@/components/ViewportHeightHandler";
 import ScrollAnimationsProvider from "@/components/ScrollAnimationsProvider";
 import QuickLinkList from "@/components/layout/QuickLinkList";
+import Cursor from "@/components/Cursor";
 
 export const metadata = {
   title: "Advanced Injury & DISC Center",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
             <Footer />
           </ScrollAnimationsProvider>
         </ScrollProvider>
+        <Cursor />
       </body>
     </html>
   );
