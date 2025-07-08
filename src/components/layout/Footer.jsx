@@ -7,15 +7,21 @@ export default function Footer() {
     <div>
       <footer id="footer" className={styles.footer}>
         <div className="footer-inner">
-          <div className={styles["footer-top"]}>
+          <div className={styles["footer-top"]} data-fade-trigger>
             <div className="container-1360">
               <div className={styles["footer-sc-tit-wrap"]}>
-                <h3 className={styles.tit}>Clinic Information & Directions</h3>
-                <span className={styles.np}>
+                <h3 className={styles.tit} data-fade="down">
+                  Clinic Information & Directions
+                </h3>
+                <span
+                  className={styles.np}
+                  data-fade="down"
+                  data-fade-delay="0.4"
+                >
                   Advanced Injury & DISC Center Hours&Direction
                 </span>
               </div>
-              <div className={styles["footer-map-container"]}>
+              <div className={styles["footer-map-container"]} data-fade="up">
                 <div className={styles["map-wrap"]}>
                   <div className={styles["map-top"]}>
                     <iframe
