@@ -10,13 +10,12 @@ export default function ScrollAnimationsProvider({ children }) {
     // 동적 import로 GSAP 로드
     const loadScrollAnimations = async () => {
       try {
-        const { initScrollAnimations, cleanupScrollAnimations } = await import(
-          "@/utils/scrollAnimations"
-        );
-        initScrollAnimations();
+        const { initScrollFadeAnimations, cleanupScrollFadeAnimations } =
+          await import("@/utils/scrollAnimations");
+        initScrollFadeAnimations();
 
         // cleanup 함수를 전역에 저장
-        window.cleanupScrollAnimations = cleanupScrollAnimations;
+        window.cleanupScrollFadeAnimations = cleanupScrollFadeAnimations;
       } catch (error) {
         console.error("Failed to load scroll animations:", error);
       }
@@ -26,8 +25,8 @@ export default function ScrollAnimationsProvider({ children }) {
 
     return () => {
       // cleanup 함수가 있으면 실행
-      if (typeof window !== "undefined" && window.cleanupScrollAnimations) {
-        window.cleanupScrollAnimations();
+      if (typeof window !== "undefined" && window.cleanupScrollFadeAnimations) {
+        window.cleanupScrollFadeAnimations();
       }
     };
   }, []);

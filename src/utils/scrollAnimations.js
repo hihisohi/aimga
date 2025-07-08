@@ -8,7 +8,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export function initScrollAnimations() {
+export function initScrollFadeAnimations() {
   // 모든 페이지에서 사용할 스크롤 진행 시 요소가 페이드 효과 주는 코드
   gsap.utils.toArray("[data-fade]").forEach((el) => {
     const direction = el.dataset.fade;
@@ -65,6 +65,6 @@ export function initScrollAnimations() {
   });
 }
 
-export function cleanupScrollAnimations() {
+export function cleanupScrollFadeAnimations() {
   ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 }
