@@ -84,7 +84,7 @@
   padding: 3rem 0;
 }
 
-.quickBarPc .quick-bar-btn-warp {
+.quickBarPc .quick-bar-btn-wrap {
   width: 9rem;
   height: 9rem;
 }
@@ -183,7 +183,7 @@
 }
 
 .quickBarPc.scrolled {
-  bottom: 6%;
+  /* bottom: 6%; */
 }
 
 /* 
@@ -202,6 +202,9 @@
   transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
 
   display: none;
+}
+
+.quickBarMobile .quick-bar-inner {
 }
 
 .quickBarMobile .quick-link-list {

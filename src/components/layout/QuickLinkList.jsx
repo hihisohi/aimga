@@ -23,59 +23,51 @@ export default function QuickLinkList() {
 
   const lenis = useLenis();
 
-  // 화면 크기 감지
+  // lenis 스크롤 이벤트 리스너 추가
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+    console.log("Lenis in QuickLinkList:", lenis);
 
-    // 초기 체크
-    checkScreenSize();
+    if (lenis) {
+      console.log("Adding scroll event listener to Lenis");
+      lenis.on("scroll", handleScrollWithLenis);
 
-    // 리사이즈 이벤트 리스너 추가
-    window.addEventListener("resize", checkScreenSize);
+      return () => {
+        console.log("Removing scroll event listener from Lenis");
+        lenis.off("scroll", handleScrollWithLenis);
+      };
+    } else {
+      console.log("Lenis is not available yet");
+    }
+  }, [lenis]);
 
-    // 클린업 함수
-    return () => {
-      window.removeEventListener("resize", checkScreenSize);
-    };
-  }, []);
+  const handleScrollWithLenis = (e) => {
+    // console.log("Lenis scroll event triggered", e);
+    // console.log("Scroll position:", e.scroll);
+    // console.log("Scroll direction:", e.direction);
 
-  // PC 퀵바 열기
-  const openQuickBarPc = useCallback(() => {
-    setIsQuickBarPcOpen(true);
+    if (e.scroll > 100) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
 
-    // 기존 애니메이션 중단
-    gsap.killTweensOf(quickLinkListWrapRef.current);
+  useEffect(() => {
+    console.log("isScrolled", isScrolled);
 
-    // 초기 상태 설정
-    quickLinkListWrapRef.current.style.visibility = "visible";
-    quickLinkListWrapRef.current.style.pointerEvents = "auto";
+    if (isScrolled) {
+      if (isQuickBarPcOpen) {
+        setIsQuickBarPcOpen(false);
+      }
+    } else {
+      if (!isQuickBarPcOpen) {
+        setIsQuickBarPcOpen(true);
+      }
+    }
+  }, [isScrolled]);
 
-    // 열린 시점에서 quick-bar 높이 재측정
-    quickLinkListWrapRef.current.style.height = "auto";
-    const currentHeight = quickLinkListWrapRef.current.scrollHeight;
-    quickLinkListWrapRef.current.style.height = "0";
-
-    gsap.to(quickLinkListWrapRef.current, {
-      height: currentHeight,
-      opacity: 1,
-      duration: 0.6,
-      ease: "power1.inOut",
-      onComplete: () => {
-        if (quickLinkListWrapRef.current) {
-          quickLinkListWrapRef.current.style.height = "auto";
-        }
-      },
-    });
-  }, []);
-
-  // PC 퀵바 닫기
-  const closeQuickBarPc = useCallback(() => {
-    setIsQuickBarPcOpen(false);
-
-    // 기존 애니메이션 중단
-    gsap.killTweensOf(quickLinkListWrapRef.current);
+  const closeQuickBarPc = () => {
+    gsap.killTweensOf(quickLinkListWrapRef.current); // 기존 애니메이션 중단
 
     gsap.to(quickLinkListWrapRef.current, {
       height: 0,
@@ -83,140 +75,47 @@ export default function QuickLinkList() {
       duration: 0.6,
       ease: "power1.inOut",
       onComplete: () => {
-        if (quickLinkListWrapRef.current) {
-          quickLinkListWrapRef.current.style.visibility = "hidden";
-          quickLinkListWrapRef.current.style.pointerEvents = "none";
-        }
+        quickLinkListWrapRef.current.style.visibility = "hidden";
+        quickLinkListWrapRef.current.style.pointerEvents = "none";
       },
     });
-  }, []);
+  };
 
-  // PC 퀵바 토글
-  const toggleQuickBarPc = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log("PC 퀵바 토글 클릭됨", isQuickBarPcOpen);
-      isQuickBarPcOpen ? closeQuickBarPc() : openQuickBarPc();
-    },
-    [isQuickBarPcOpen, openQuickBarPc, closeQuickBarPc]
-  );
+  const openQuickBarPc = () => {
+    gsap.killTweensOf(quickLinkListWrapRef.current); // 기존 애니메이션 중단
 
-  // 모바일 퀵바 열기
-  const openQuickBarMobile = useCallback(() => {
-    setIsQuickBarMobileOpen(true);
-    quickBarMobileRef.current?.classList.add(styles["is-open"]);
-  }, []);
+    quickLinkListWrapRef.current.style.visibility = "visible";
+    quickLinkListWrapRef.current.style.pointerEvents = "auto";
 
-  // 모바일 퀵바 닫기
-  const closeQuickBarMobile = useCallback(() => {
-    setIsQuickBarMobileOpen(false);
-    quickBarMobileRef.current?.classList.remove(styles["is-open"]);
-  }, []);
+    // 열린 시점에서 quick-bar 높이 재측정
+    quickLinkListWrapRef.current.style.height = "auto";
+    const currentHeight = quickLinkListWrapRef.current.scrollHeight;
+    quickLinkListWrapRef.current.style.height = "0px";
 
-  // 모바일 퀵바 토글
-  const toggleQuickBarMobile = useCallback(
-    (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log("모바일 퀵바 토글 클릭됨", isQuickBarMobileOpen);
-      isQuickBarMobileOpen ? closeQuickBarMobile() : openQuickBarMobile();
-    },
-    [isQuickBarMobileOpen, openQuickBarMobile, closeQuickBarMobile]
-  );
+    gsap.to(quickLinkListWrapRef.current, {
+      height: currentHeight,
+      opacity: 1,
+      duration: 0.6,
+      ease: "power1.inOut",
+      onComplete: () => {
+        quickLinkListWrapRef.current.style.height = "auto";
+      },
+    });
+  };
 
-  // 스크롤 이벤트 처리
   useEffect(() => {
-    if (!lenis) return;
-
-    const handleScroll = () => {
-      const scrollY = lenis.scroll;
-      const newIsScrolled = scrollY > 100;
-
-      console.log("스크롤 이벤트:", {
-        scrollY,
-        newIsScrolled,
-        isMobile,
-        isQuickBarPcOpen,
-      });
-
-      setIsScrolled(newIsScrolled);
-
-      // PC 퀵바 스크롤 처리
-      if (!isMobile && quickBarPcRef.current) {
-        if (newIsScrolled && !wasQuickBarPcScrolled) {
-          console.log("PC 퀵바 스크롤 닫기");
-          setWasQuickBarPcScrolled(true);
-          quickBarPcRef.current.classList.add(styles.scrolled);
-
-          if (isQuickBarPcOpen) {
-            closeQuickBarPc();
-          }
-        } else if (!newIsScrolled && wasQuickBarPcScrolled) {
-          console.log("PC 퀵바 스크롤 열기");
-          setWasQuickBarPcScrolled(false);
-          quickBarPcRef.current.classList.remove(styles.scrolled);
-
-          if (!isQuickBarPcOpen) {
-            openQuickBarPc();
-          }
-        }
-      }
-    };
-
-    // 초기 스크롤 상태 확인
-    handleScroll();
-
-    lenis.on("scroll", handleScroll);
-
-    return () => {
-      lenis.off("scroll", handleScroll);
-    };
-  }, [lenis, isMobile]); // 의존성 배열 단순화
-
-  // PC 퀵바 상태 변경 시 스크롤 상태 재확인
-  useEffect(() => {
-    if (!lenis || isMobile) return;
-
-    const scrollY = lenis.scroll;
-    const newIsScrolled = scrollY > 100;
-
-    if (newIsScrolled && isQuickBarPcOpen) {
-      console.log("초기 스크롤 상태에 따른 PC 퀵바 닫기");
-      setWasQuickBarPcScrolled(true);
+    if (isQuickBarPcOpen) {
+      console.log("열림");
+      openQuickBarPc();
+    } else {
+      console.log("닫힘");
       closeQuickBarPc();
     }
-  }, [lenis, isMobile, isQuickBarPcOpen, closeQuickBarPc]);
+  }, [isQuickBarPcOpen]);
 
-  // 모바일 외부 클릭 처리
-  useEffect(() => {
-    if (!isMobile) return;
-
-    const handleClickOutside = (event) => {
-      if (isQuickBarMobileOpen) {
-        const targetElements = [
-          quickBarMobileRef.current,
-          quickBarMobileToggleBtnRef.current,
-        ];
-        const isInside = targetElements.some(
-          (targetElement) =>
-            targetElement && targetElement.contains(event.target)
-        );
-
-        if (!isInside) {
-          closeQuickBarMobile();
-        }
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [isMobile, isQuickBarMobileOpen, closeQuickBarMobile]);
+  const handleClickPcToggleBtn = () => {
+    setIsQuickBarPcOpen(!isQuickBarPcOpen);
+  };
 
   // PC 버전 퀵바 (>768px)
   const PCQuickBar = () => (
@@ -225,7 +124,7 @@ export default function QuickLinkList() {
       id="quickBarPc"
       className={`${styles.quickBarPc} ${
         isQuickBarPcOpen ? styles["is-open"] : ""
-      } ${isScrolled ? styles.scrolled : ""}`}
+      } ${isScrolled ? styles["scrolled"] : ""}`}
     >
       <div className={styles["quick-bar-inner"]}>
         <div
@@ -284,7 +183,7 @@ export default function QuickLinkList() {
           <button
             ref={quickBarPcToggleBtnRef}
             className={styles["btn-toggle__quick-bar"]}
-            onClick={toggleQuickBarPc}
+            onClick={handleClickPcToggleBtn}
           >
             <div
               ref={quickBarPcBtnCloseIconRef}
