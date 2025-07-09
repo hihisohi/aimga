@@ -396,10 +396,10 @@
   ** header scroll up & down 
    */
 
-#header.scroll-up {
+.header.scroll-up {
 }
 
-#header.scroll-down {
+.header.scroll-down {
   transform: translateY(-100%);
 }
 

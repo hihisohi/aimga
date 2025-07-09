@@ -56,13 +56,11 @@ export default function QuickLinkList() {
     console.log("isScrolled", isScrolled);
 
     if (isScrolled) {
-      if (isQuickBarPcOpen) {
-        setIsQuickBarPcOpen(false);
-      }
+      setIsQuickBarPcOpen(false);
+      quickBarPcRef.current.classList.add(styles["scrolled"]);
     } else {
-      if (!isQuickBarPcOpen) {
-        setIsQuickBarPcOpen(true);
-      }
+      setIsQuickBarPcOpen(true);
+      quickBarPcRef.current.classList.remove(styles["scrolled"]);
     }
   }, [isScrolled]);
 

@@ -1,67 +1,181 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./Header.module.css";
 import Logo from "../ui/Logo";
+import { useEffect, useRef, useState } from "react";
+import { useLenis } from "@/hooks/useLenis";
+import { GNB_MENU } from "@/config/gnb";
+import gsap from "gsap";
 
 export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolledDown, setIsScrolledDown] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isMobileHeader, setIsMobileHeader] = useState(false);
+  const [isPcMenuOpen, setIsPcMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const [headerInnerHeight, setHeaderInnerHeight] = useState(0);
+  const [bgOverlayHeight, setBgOverlayHeight] = useState(0);
+
+  const headerRef = useRef(null);
+  const headerInnerRef = useRef(null);
+  const depth1ListRef = useRef(null);
+  const bgOverlayRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+
+  const lenis = useLenis();
+
+  const handleMouseEnterDepth1List = (e) => {
+    if (isMobileHeader) return;
+
+    setIsPcMenuOpen(true);
+    setIsHovered(true);
+    animateHeaderHeight(bgOverlayRef.current, bgOverlayHeight);
+    animateHeaderHeight(headerRef.current, headerHeight);
+  };
+
+  const handleMouseLeaveHeader = (e) => {
+    if (isMobileHeader) return;
+
+    setIsPcMenuOpen(false);
+    setIsHovered(false);
+    animateHeaderHeight(bgOverlayRef.current, 0);
+    animateHeaderHeight(headerRef.current, headerInnerHeight);
+  };
+
+  const handleClickGnbToggleBtn = () => {
+    if (isMobileHeader) {
+      if (isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+        setIsHovered(false);
+
+        gsap.to(mobileMenuRef.current, {
+          x: "100%",
+          opacity: 0,
+          duration: 0.4,
+          onComplete: () => {
+            mobileMenuRef.current.classList.remove("active");
+
+            // mobileDepth1Items.forEach((item) => {
+            //   const submenu = item.querySelector(".depth2");
+            //   item.classList.remove("active");
+            //   submenu.style.display = "none";
+            //   submenu.style.height = 0;
+            // });
+          },
+        });
+      } else {
+        setIsMobileMenuOpen(true);
+        setIsHovered(true);
+
+        gsap.to(mobileMenuRef.current, {
+          x: 0,
+          opacity: 1,
+          ease: "ease",
+        });
+      }
+    } else {
+      if (isPcMenuOpen) {
+        setIsPcMenuOpen(false);
+        setIsHovered(false);
+        animateHeaderHeight(bgOverlayRef.current, 0);
+        animateHeaderHeight(headerRef.current, headerInnerHeight);
+      } else {
+        setIsPcMenuOpen(true);
+        setIsHovered(true);
+        animateHeaderHeight(bgOverlayRef.current, bgOverlayHeight);
+        animateHeaderHeight(headerRef.current, headerHeight);
+      }
+    }
+  };
+
+  const animateHeaderHeight = (el, to, duration = 300) => {
+    const startHeight = el.getBoundingClientRect().height;
+    const startTime = performance.now();
+
+    function frame(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const height = startHeight + (to - startHeight) * progress;
+
+      el.style.height = height + "px";
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      }
+    }
+
+    requestAnimationFrame(frame);
+  };
+
+  useEffect(() => {
+    if (lenis) {
+      lenis.on("scroll", handleScrollWithLenis);
+
+      setHeaderHeight(headerRef.current.scrollHeight);
+      setHeaderInnerHeight(headerInnerRef.current.scrollHeight);
+      setBgOverlayHeight(bgOverlayRef.current.scrollHeight);
+
+      setIsMobileHeader(window.innerWidth <= 1280);
+
+      return () => {
+        lenis.off("scroll", handleScrollWithLenis);
+      };
+    } else {
+      console.log("Lenis is not available yet");
+    }
+  }, [lenis]);
+
+  const handleScrollWithLenis = (e) => {
+    if (e.direction === 1) {
+      setIsScrolledDown(true);
+    } else {
+      setIsScrolledDown(false);
+    }
+
+    if (e.scroll > window.innerHeight) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  };
+
   return (
     <div>
-      <header className={styles["header"] + " " + styles["type5"]}>
-        <div className={styles["header_inner"]}>
+      <header
+        ref={headerRef}
+        className={`${styles["header"]} ${styles["type5"]} ${
+          !isMobileHeader && isScrolledDown ? styles["scroll-down"] : ""
+        } ${isScrolled ? styles["scrolled"] : ""} ${
+          isHovered ? styles["hovered"] : ""
+        }`}
+        onMouseLeave={handleMouseLeaveHeader}
+      >
+        <div ref={headerInnerRef} className={styles["header_inner"]}>
           <div className={styles["flex-container"]}>
             <div className={styles["header-logo"]}>
-              <Logo type="en-wh" href="/" />
+              <Logo type={isHovered || isScrolled ? "en" : "en-wh"} href="/" />
             </div>
             <nav className={styles["gnb"]}>
               <h2 className="blind">Menu</h2>
               <div className={styles["gnb_wrapper"]}>
                 <div className={styles["gnb_inner"]}>
                   <div className={styles["depth1_area"]}>
-                    <ul className={styles["depth1_list"]}>
-                      <li className={styles["depth1_item"]}>
-                        <a href="" className={styles["depth1_link"]}>
-                          About the clinic
-                        </a>
-                      </li>
-                      <li className={styles["depth1_item"]}>
-                        <a href="" className={styles["depth1_link"]}>
-                          Equipment
-                        </a>
-                      </li>
-                      <li className={styles["depth1_item"]}>
-                        <a href="" className={styles["depth1_link"]}>
-                          Conditions
-                        </a>
-                      </li>
-                      <li className={styles["depth1_item"]}>
-                        <a href="" className={styles["depth1_link"]}>
-                          Auto Injury
-                        </a>
-                      </li>
-                      <li className={styles["depth1_item"]}>
-                        <a href="" className={styles["depth1_link"]}>
-                          Spinal Decompression
-                        </a>
-                      </li>
-                      <li className={styles["depth1_item"]}>
-                        <a href="" className={styles["depth1_link"]}>
-                          Sports Injury
-                        </a>
-                      </li>
-                      <li className={styles["depth1_item"]}>
-                        <a href="" className={styles["depth1_link"]}>
-                          Chiropractic Care
-                        </a>
-                      </li>
-                      <li className={styles["depth1_item"]}>
-                        <a href="" className={styles["depth1_link"]}>
-                          Care
-                        </a>
-                      </li>
-                      <li className={styles["depth1_item"]}>
-                        <a href="" className={styles["depth1_link"]}>
-                          Community
-                        </a>
-                      </li>
+                    <ul
+                      className={styles["depth1_list"]}
+                      ref={depth1ListRef}
+                      onMouseEnter={handleMouseEnterDepth1List}
+                    >
+                      {GNB_MENU.map((item) => (
+                        <li className={styles["depth1_item"]} key={item.label}>
+                          <a href={item.path} className={styles["depth1_link"]}>
+                            {item.label}
+                          </a>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -120,7 +234,10 @@ export default function Header() {
                 <a href="">Reservation 770-734-5460</a>
               </div>
               <button
-                className={styles["gnb-toggle-btn"] + " " + styles["close"]}
+                className={`${styles["gnb-toggle-btn"]} ${
+                  isPcMenuOpen ? styles["open"] : styles["close"]
+                }`}
+                onClick={handleClickGnbToggleBtn}
               >
                 <span className="blind">메뉴 열기</span>
                 <div className={styles["gnb-toggle-btn-inner"]}>
@@ -131,197 +248,27 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className={styles["gnb_overlay_bg"]}>
-          <div className={styles["depth2_area"]}>
-            <div className={styles["depth2_area-title"]}>About the clinic</div>
-            <ul className={styles["depth2_list"]}>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  About US
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Dr. Park
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Hours&amp;Direction
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Integrated Medicine
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["depth2_area"]}>
-            <div className={styles["depth2_area-title"]}>Equipment</div>
-            <ul className={styles["depth2_list"]}>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  DMX
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  DRX 9000
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  LLLT(ML-830)
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["depth2_area"]}>
-            <div className={styles["depth2_area-title"]}>Conditions</div>
-            <ul className={styles["depth2_list"]}>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Disc Herniated
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Knee pain
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Neck pain
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Shoulder pain
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Sciatica
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Low Back pain
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Hip pain
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["depth2_area"]}>
-            <div className={styles["depth2_area-title"]}>Auto Injury</div>
-            <ul className={styles["depth2_list"]}>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Auto Injury
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["depth2_area"]}>
-            <div className={styles["depth2_area-title"]}>
-              Spinal Decompression
+        <div ref={bgOverlayRef} className={styles["gnb_overlay_bg"]}>
+          {GNB_MENU.map((item) => (
+            <div className={styles["depth2_area"]} key={item.label}>
+              <div className={styles["depth2_area-title"]}>{item.label}</div>
+              <ul className={styles["depth2_list"]}>
+                {item.children.map((child) => (
+                  <li key={child.label}>
+                    <a
+                      href={item.path + child.path}
+                      className={styles["depth2_link"]}
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className={styles["depth2_list"]}>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Spinal Decompression
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["depth2_area"]}>
-            <div className={styles["depth2_area-title"]}>Sports Injury</div>
-            <ul className={styles["depth2_list"]}>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Sports Injury
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["depth2_area"]}>
-            <div className={styles["depth2_area-title"]}>Chiropractic Care</div>
-            <ul className={styles["depth2_list"]}>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Why Chiropractic Care is Needed
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  What is Chiropractic
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Chiropractic Care
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Non-invasive Treatment
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["depth2_area"]}>
-            <div className={styles["depth2_area-title"]}>Care</div>
-            <ul className={styles["depth2_list"]}>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  ESWT
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  PT &amp; Rehab
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Craniofacial Release
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Ring Dinger
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className={styles["depth2_area"]}>
-            <div className={styles["depth2_area-title"]}>Community</div>
-            <ul className={styles["depth2_list"]}>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Notice
-                </a>
-              </li>
-              <li>
-                <a href="" className={styles["depth2_link"]}>
-                  Ask Dr. Park
-                </a>
-              </li>
-            </ul>
-          </div>
+          ))}
         </div>
 
-        <div className={styles["mobile-menu"]}>
+        <div className={styles["mobile-menu"]} ref={mobileMenuRef}>
           <nav className={styles["main_nav_mobile"]} aria-label="메인 메뉴">
             <ul className={styles["m-gnb"]}>
               <li className={styles["depth1_item"]}>
