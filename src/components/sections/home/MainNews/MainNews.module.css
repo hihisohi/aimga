@@ -205,6 +205,12 @@
   background-color: #fff;
 }
 
+.news-swiper-btn-prev:global(.swiper-button-disabled),
+.news-swiper-btn-next:global(.swiper-button-disabled) {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
 @media (max-width: 1440px) {
   .main-news-swiper {
     width: 100%;

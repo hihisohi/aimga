@@ -4,6 +4,7 @@ import homeStyles from "../home.module.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Autoplay } from "swiper/modules";
 
 export default function MainSubject() {
   return (
@@ -71,6 +72,7 @@ export default function MainSubject() {
                 centeredSlides: false,
               },
             }}
+            modules={[Autoplay]}
           >
             <SwiperSlide>
               <div className={styles["subject-item-inner"]}>

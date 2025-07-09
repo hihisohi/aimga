@@ -3,11 +3,27 @@ import styles from "./MainNews.module.css";
 import homeStyles from "../home.module.css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCreative } from "swiper/modules";
+import { EffectCreative, Navigation } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
 import "swiper/css/effect-creative";
+import { useRef, useEffect, useState } from "react";
 
 export default function MainNews() {
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+  const [swiperInstance, setSwiperInstance] = useState(null);
+
+  useEffect(() => {
+    if (swiperInstance && prevRef.current && nextRef.current) {
+      swiperInstance.params.navigation.prevEl = prevRef.current;
+      swiperInstance.params.navigation.nextEl = nextRef.current;
+      swiperInstance.navigation.init();
+      swiperInstance.navigation.update();
+      console.log("Navigation set:", swiperInstance.navigation);
+    }
+  }, [swiperInstance]);
+
   return (
     <section
       className={homeStyles["section"] + " " + styles["sc__main-news"]}
@@ -19,7 +35,7 @@ export default function MainNews() {
             className={styles["news-txt-wrap"]}
             data-fade="down"
             data-fade-distance="40"
-            data-fade-duration="0.4"
+            data-fade-duration="0.6"
           >
             <div
               className={`${homeStyles["main-sc-tit-wrap"]} ${homeStyles["center"]} ${homeStyles["tac"]} ${homeStyles["g-0"]}`}
@@ -31,7 +47,7 @@ export default function MainNews() {
             className={styles["news-con-wrap"]}
             data-fade="up"
             data-fade-distance="60"
-            data-fade-duration="0.4"
+            data-fade-duration="0.6"
           >
             <Swiper
               className={styles["main-news-swiper"]}
@@ -50,11 +66,10 @@ export default function MainNews() {
                   opacity: 1,
                 },
               }}
-              navigation={{
-                nextEl: ".news-swiper-btn-next",
-                prevEl: ".news-swiper-btn-prev",
+              modules={[EffectCreative, Navigation]}
+              onSwiper={(swiper) => {
+                setSwiperInstance(swiper);
               }}
-              modules={[EffectCreative]}
             >
               <SwiperSlide>
                 <div className={styles["news-item-inner"]}>
@@ -203,15 +218,17 @@ export default function MainNews() {
                   </div>
                 </div>
               </SwiperSlide>
-              <div className={styles["news-swiper-btns"]}>
-                <div
-                  className={`${styles["news-swiper-btn-prev"]} ${styles["c-btn"]}`}
-                ></div>
-                <div
-                  className={`${styles["news-swiper-btn-next"]} ${styles["c-btn"]}`}
-                ></div>
-              </div>
             </Swiper>
+            <div className={styles["news-swiper-btns"]}>
+              <div
+                className={`${styles["news-swiper-btn-prev"]} c-btn`}
+                ref={prevRef}
+              ></div>
+              <div
+                className={`${styles["news-swiper-btn-next"]} c-btn`}
+                ref={nextRef}
+              ></div>
+            </div>
           </div>
         </div>
       </div>

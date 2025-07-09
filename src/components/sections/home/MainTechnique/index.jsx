@@ -1,18 +1,81 @@
 import styles from "./MainTechnique.module.css";
 import homeStyles from "../home.module.css";
+import { useRef, useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCreative } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-creative";
+import { useLenis } from "@/hooks/useLenis";
 
 export default function MainTechnique() {
+  const movingTextRef = useRef(null);
+  const movingTextParentRef = useRef(null);
+  const [transform, setTransform] = useState("");
+  const [activeButtonIndex, setActiveButtonIndex] = useState(0);
+  const buttonRefs = useRef([]);
+
+  let sectionTop, sectionHeight, sectionWidth, isWidth960;
+
+  const lenis = useLenis();
+
+  // lenis 스크롤 이벤트 리스너 추가
+  useEffect(() => {
+    if (lenis) {
+      sectionTop = movingTextParentRef.current.offsetTop;
+      sectionHeight = movingTextParentRef.current.offsetHeight;
+      sectionWidth = movingTextParentRef.current.offsetWidth;
+      isWidth960 = window.innerWidth <= 960;
+
+      lenis.on("scroll", () =>
+        handleScroll(sectionTop, sectionHeight, sectionWidth)
+      );
+
+      return () => {
+        lenis.off("scroll", () =>
+          handleScroll(sectionTop, sectionHeight, sectionWidth)
+        );
+      };
+    } else {
+      console.log("Lenis is not available yet");
+    }
+  }, [lenis]);
+
+  const handleScroll = (sectionTop, sectionHeight, sectionWidth) => {
+    const progress = Math.min(
+      Math.max(
+        (lenis.scroll - sectionTop + window.innerHeight) /
+          (sectionHeight + window.innerHeight),
+        0
+      ),
+      1
+    );
+
+    if (!isWidth960) {
+      const rightY = progress * -sectionHeight * 0.6;
+      setTransform(`translateY(${rightY}px) rotate(90deg)`);
+    } else {
+      const leftY = progress * -sectionWidth * 0.8;
+      setTransform(`translateX(${leftY}px)`);
+    }
+  };
+
+  const handleButtonClick = (index, swiper) => {
+    setActiveButtonIndex(index);
+    swiper.slideTo(index);
+  };
+
   return (
     <section
       className={`${homeStyles["section"]} ${styles["sc__main-technique"]}`}
       data-fade-trigger
+      ref={movingTextParentRef}
     >
-      <div className={styles["side-text"]}>
+      <div
+        ref={movingTextRef}
+        className={styles["side-text"]}
+        style={{ transform }}
+      >
         <span>Advanced Injury & DISC Center</span>
         <span>Advanced Injury & DISC Center</span>
         <span>Advanced Injury & DISC Center</span>
@@ -44,10 +107,22 @@ export default function MainTechnique() {
             data-fade-duration="0.6"
           >
             <div className={styles["main-technique-btn-wrap"]}>
-              <button className={styles["main-technique-btn"]}>
+              <button
+                ref={(el) => (buttonRefs.current[0] = el)}
+                className={`${styles["main-technique-btn"]} ${
+                  activeButtonIndex === 0 ? styles["active"] : ""
+                }`}
+              >
                 Ring Dinger&reg;
               </button>
-              <button className={styles["main-technique-btn"]}>CFR</button>
+              <button
+                ref={(el) => (buttonRefs.current[1] = el)}
+                className={`${styles["main-technique-btn"]} ${
+                  activeButtonIndex === 1 ? styles["active"] : ""
+                }`}
+              >
+                CFR
+              </button>
             </div>
             <Swiper
               className={styles["main-technique-swiper"]}
@@ -74,41 +149,18 @@ export default function MainTechnique() {
               }}
               modules={[EffectCreative]}
               onInit={(swiper) => {
-                const mainTechniqueButtons = document.querySelectorAll(
-                  ".main-technique-btn"
-                );
+                // Swiper 초기화 시 첫 번째 버튼을 활성화
+                setActiveButtonIndex(0);
 
-                if (mainTechniqueButtons.length > 0) {
-                  mainTechniqueButtons.forEach((btn) => {
-                    if (btn.dataset.index === swiper.activeIndex.toString()) {
-                      btn.classList.add("active");
-                    }
-
-                    btn.addEventListener("click", () => {
-                      const btnIndex = btn.getAttribute("data-index");
-                      swiper.slideTo(btnIndex);
-
-                      mainTechniqueButtons.forEach((btn) => {
-                        btn.classList.remove("active");
-                      });
-
-                      btn.classList.add("active");
-                    });
-                  });
-                }
-              }}
-              onRealIndexChange={(swiper) => {
-                const mainTechniqueButtons = document.querySelectorAll(
-                  ".main-technique-btn"
-                );
-
-                mainTechniqueButtons.forEach((btn) => {
-                  btn.classList.remove("active");
-
-                  if (btn.dataset.index === swiper.activeIndex.toString()) {
-                    btn.classList.add("active");
+                // 버튼 클릭 핸들러에 swiper 인스턴스 전달
+                buttonRefs.current.forEach((btn, index) => {
+                  if (btn) {
+                    btn.onclick = () => handleButtonClick(index, swiper);
                   }
                 });
+              }}
+              onRealIndexChange={(swiper) => {
+                setActiveButtonIndex(swiper.activeIndex);
               }}
             >
               <SwiperSlide>
