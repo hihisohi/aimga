@@ -267,7 +267,7 @@ export default function Cursor() {
             transform: "scale(1)",
             mixBlendMode: "initial",
             backgroundImage:
-              "url(http://aimga.wacus.kr//assets/img/common/cursor_slide_hover_img.svg)",
+              "url(https://aimga.vercel.app/images/common/cursor_slide_hover_img.svg)",
           },
         ],
         {
@@ -304,7 +304,7 @@ export default function Cursor() {
             transform: "scale(1)",
             mixBlendMode: "multiply",
             backgroundImage:
-              "url(http://aimga.wacus.kr//assets/img/common/cursor_bd_img.svg)",
+              "url(https://aimga.vercel.app/images/common/cursor_bd_img.svg)",
           },
         ],
         {
