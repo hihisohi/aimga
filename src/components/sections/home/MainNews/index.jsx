@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-creative";
 import { useRef, useEffect, useState } from "react";
 import ModalPortal from "@/components/modal/modalPortal";
-import NewsModal from "@/components/modal/newsModal";
+import NewsModal from "@/components/modal/NewsModal";
 
 const newsList = [
   {
