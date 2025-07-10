@@ -1,0 +1,11 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 70vh;
+}
+
+.modal img {
+  width: 400px;
+}

@@ -51,6 +51,8 @@ export default function RootLayout({ children }) {
           </ScrollAnimationsProvider>
         </ScrollProvider>
         <Cursor />
+
+        <div id="modal-root"></div>
       </body>
     </html>
   );

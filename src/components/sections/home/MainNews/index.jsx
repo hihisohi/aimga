@@ -8,11 +8,43 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-creative";
 import { useRef, useEffect, useState } from "react";
+import ModalPortal from "@/components/modal/modalPortal";
+import NewsModal from "@/components/modal/newsModal";
+
+const newsList = [
+  {
+    title: "2025 TOP DOCTORS,<br>JANURY 2025",
+    image: "/images/pages/main/news_img_01.png",
+    description: "DR. HYUNG JOON PARK, DC",
+  },
+  {
+    title: "2022's BEST SPINAL<br>DECOMPTECTION DOCTORS<br>IN AMERICA",
+    image: "/images/pages/main/news_img_02.png",
+    description: "DR. HYUNG JOON PARK, DC",
+  },
+  {
+    title: "2022's BEST NEUROPATHY<br>PHYSICIANS IN AMERICA",
+    image: "/images/pages/main/news_img_03.png",
+    description: "DR. HYUNG JOON PARK, DC",
+  },
+];
+
+// title 문자열에 포함된 <br> 태그를 JSX 요소로 변환하는 함수
+const renderTitle = (title) => {
+  return title.split("<br>").map((text, index, array) => (
+    <span key={index}>
+      {text}
+      {index < array.length - 1 && <br />}
+    </span>
+  ));
+};
 
 export default function MainNews() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const [swiperInstance, setSwiperInstance] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [clickedNewsId, setClickedNewsId] = useState(null);
 
   useEffect(() => {
     if (swiperInstance && prevRef.current && nextRef.current) {
@@ -71,153 +103,60 @@ export default function MainNews() {
                 setSwiperInstance(swiper);
               }}
             >
-              <SwiperSlide>
-                <div className={styles["news-item-inner"]}>
-                  <div className={styles["image"]}>
-                    <Image
-                      src="/images/pages/main/news_img_01.png"
-                      alt="2025 TOP DOCTORS"
-                      width={400}
-                      height={300}
-                    />
-                  </div>
-                  <div className={styles["text"]}>
-                    <strong>
-                      2025 TOP DOCTORS, <br className="block-500" /> JANURY 2025
-                    </strong>
-                    <p>DR. HYUNG JOON PARK, DC</p>
-                    <div className={styles["download-btn-wrap"]}>
-                      <button
-                        className={`${styles["download-btn"]} ${styles["img-dl-btn"]}`}
-                      >
-                        <span className={styles["btn-txt"]}>Image Viewer</span>
-                        <span className={styles["btn-icon"]}>
-                          <Image
-                            src="/images/common/icon/download-image.svg"
-                            alt="Download Image Icon"
-                            width={20}
-                            height={20}
-                          />
-                        </span>
-                      </button>
-                      <a
-                        href="/images/pages/main/news_detail_img01.png"
-                        download="2025 TOP DOCTORS, JANURY 2025.png"
-                        className={styles["download-btn"]}
-                      >
-                        <span className={styles["btn-txt"]}>Download</span>
-                        <span className={styles["btn-icon"]}>
-                          <Image
-                            src="/images/common/icon/download.svg"
-                            alt="Download Icon"
-                            width={20}
-                            height={20}
-                          />
-                        </span>
-                      </a>
+              {newsList.map((news, index) => (
+                <SwiperSlide key={index}>
+                  <div className={styles["news-item-inner"]}>
+                    <div className={styles["image"]}>
+                      <Image
+                        src={news.image}
+                        alt={news.title}
+                        width={400}
+                        height={300}
+                      />
+                    </div>
+                    <div className={styles["text"]}>
+                      <strong>{renderTitle(news.title)}</strong>
+                      <p>{news.description}</p>
+                      <div className={styles["download-btn-wrap"]}>
+                        <button
+                          className={`${styles["download-btn"]} ${styles["img-dl-btn"]}`}
+                          onClick={() => {
+                            setShowModal(true);
+                            setClickedNewsId(index + 1);
+                          }}
+                        >
+                          <span className={styles["btn-txt"]}>
+                            Image Viewer
+                          </span>
+                          <span className={styles["btn-icon"]}>
+                            <Image
+                              src="/images/common/icon/download-image.svg"
+                              alt="Download Image Icon"
+                              width={20}
+                              height={20}
+                            />
+                          </span>
+                        </button>
+                        <a
+                          href="/images/pages/main/news_detail_img01.png"
+                          download="2025 TOP DOCTORS, JANURY 2025.png"
+                          className={styles["download-btn"]}
+                        >
+                          <span className={styles["btn-txt"]}>Download</span>
+                          <span className={styles["btn-icon"]}>
+                            <Image
+                              src="/images/common/icon/download.svg"
+                              alt="Download Icon"
+                              width={20}
+                              height={20}
+                            />
+                          </span>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className={styles["news-item-inner"]}>
-                  <div className={styles["image"]}>
-                    <Image
-                      src="/images/pages/main/news_img_02.png"
-                      alt="2022's BEST SPINAL DECOMPTESSION DOCTORS"
-                      width={400}
-                      height={300}
-                    />
-                  </div>
-                  <div className={styles["text"]}>
-                    <strong>
-                      2022&apos;s BEST SPINAL <br />
-                      DECOMPTESSION DOCTORS <br />
-                      IN AMERICA
-                    </strong>
-                    <p>DR. HYUNG JOON PARK, DC</p>
-                    <div className={styles["download-btn-wrap"]}>
-                      <button
-                        className={`${styles["download-btn"]} ${styles["img-dl-btn"]}`}
-                      >
-                        <span className={styles["btn-txt"]}>Image Viewer</span>
-                        <span className={styles["btn-icon"]}>
-                          <Image
-                            src="/images/common/icon/download-image.svg"
-                            alt="Download Image Icon"
-                            width={20}
-                            height={20}
-                          />
-                        </span>
-                      </button>
-                      <a
-                        href="/images/pages/main/news_detail_img02.png"
-                        download="2022's BEST SPINAL DECOMPTECTION DOCTORS IN AMERICA.png"
-                        className={styles["download-btn"]}
-                      >
-                        <span className={styles["btn-txt"]}>Download</span>
-                        <span className={styles["btn-icon"]}>
-                          <Image
-                            src="/images/common/icon/download.svg"
-                            alt="Download Icon"
-                            width={20}
-                            height={20}
-                          />
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className={styles["news-item-inner"]}>
-                  <div className={styles["image"]}>
-                    <Image
-                      src="/images/pages/main/news_img_03.png"
-                      alt="2022's BEST NEUROPATHY PHYSICIANS"
-                      width={400}
-                      height={300}
-                    />
-                  </div>
-                  <div className={styles["text"]}>
-                    <strong>
-                      2022&apos;s BEST NEUROPATHY <br />
-                      PHYSICIANS IN AMERICA
-                    </strong>
-                    <p>DR. HYUNG JOON PARK, DC</p>
-                    <div className={styles["download-btn-wrap"]}>
-                      <button
-                        className={`${styles["download-btn"]} ${styles["img-dl-btn"]}`}
-                      >
-                        <span className={styles["btn-txt"]}>Image Viewer</span>
-                        <span className={styles["btn-icon"]}>
-                          <Image
-                            src="/images/common/icon/download-image.svg"
-                            alt="Download Image Icon"
-                            width={20}
-                            height={20}
-                          />
-                        </span>
-                      </button>
-                      <a
-                        href="/images/pages/main/news_detail_img03.png"
-                        download="2022's BEST NEUROPATHY PHYSICIANS IN AMERICA.png"
-                        className={styles["download-btn"]}
-                      >
-                        <span className={styles["btn-txt"]}>Download</span>
-                        <span className={styles["btn-icon"]}>
-                          <Image
-                            src="/images/common/icon/download.svg"
-                            alt="Download Icon"
-                            width={20}
-                            height={20}
-                          />
-                        </span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </SwiperSlide>
+                </SwiperSlide>
+              ))}
             </Swiper>
             <div className={styles["news-swiper-btns"]}>
               <div
@@ -232,6 +171,15 @@ export default function MainNews() {
           </div>
         </div>
       </div>
+
+      <ModalPortal>
+        {showModal && (
+          <NewsModal
+            onClose={() => setShowModal(false)}
+            imageId={clickedNewsId}
+          />
+        )}
+      </ModalPortal>
     </section>
   );
 }
