@@ -607,6 +607,13 @@
   touch-action: none; /* 스크롤 이벤트 막기 위해 */
 }
 
+.mobile-menu-overlay.active {
+  pointer-events: auto;
+  z-index: 800;
+  opacity: 1;
+  visibility: visible;
+}
+
 /* 
   ** 반응형
    */

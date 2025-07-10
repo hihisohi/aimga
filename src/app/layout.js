@@ -9,7 +9,7 @@ import Footer from "@/components/layout/Footer";
 import { ScrollProvider } from "@/components/ScrollProvider";
 import ViewportHeightHandler from "@/components/ViewportHeightHandler";
 import ScrollAnimationsProvider from "@/components/ScrollAnimationsProvider";
-import QuickLinkList from "@/components/layout/QuickLinkList";
+import QuickBar from "@/components/layout/quickBar";
 import Cursor from "@/components/Cursor";
 
 export const metadata = {
@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
         <ScrollProvider>
           <ScrollAnimationsProvider>
             <Header />
-            <QuickLinkList />
+            <QuickBar />
             {children}
             <Footer />
           </ScrollAnimationsProvider>

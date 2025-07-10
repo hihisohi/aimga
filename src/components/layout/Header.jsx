@@ -7,12 +7,12 @@ import { useEffect, useRef, useState } from "react";
 import { useLenis } from "@/hooks/useLenis";
 import { GNB_MENU } from "@/config/gnb";
 import gsap from "gsap";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isScrolledDown, setIsScrolledDown] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isMobileHeader, setIsMobileHeader] = useState(false);
   const [isPcMenuOpen, setIsPcMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -27,6 +27,8 @@ export default function Header() {
   const mobileMenuRef = useRef(null);
 
   const lenis = useLenis();
+
+  const isMobileHeader = useMediaQuery("(max-width: 1280px)");
 
   const handleMouseEnterDepth1List = (e) => {
     if (isMobileHeader) return;
@@ -58,13 +60,6 @@ export default function Header() {
           duration: 0.4,
           onComplete: () => {
             mobileMenuRef.current.classList.remove("active");
-
-            // mobileDepth1Items.forEach((item) => {
-            //   const submenu = item.querySelector(".depth2");
-            //   item.classList.remove("active");
-            //   submenu.style.display = "none";
-            //   submenu.style.height = 0;
-            // });
           },
         });
       } else {
@@ -118,8 +113,6 @@ export default function Header() {
       setHeaderHeight(headerRef.current.scrollHeight);
       setHeaderInnerHeight(headerInnerRef.current.scrollHeight);
       setBgOverlayHeight(bgOverlayRef.current.scrollHeight);
-
-      setIsMobileHeader(window.innerWidth <= 1280);
 
       return () => {
         lenis.off("scroll", handleScrollWithLenis);
@@ -455,7 +448,24 @@ export default function Header() {
           </nav>
         </div>
       </header>
-      <div className={styles["mobile-menu-overlay"]}></div>
+      <div
+        className={`${styles["mobile-menu-overlay"]} ${
+          isMobileMenuOpen ? styles["active"] : ""
+        }`}
+        onClick={() => {
+          setIsMobileMenuOpen(false);
+          setIsHovered(false);
+
+          gsap.to(mobileMenuRef.current, {
+            x: "100%",
+            opacity: 0,
+            duration: 0.4,
+            onComplete: () => {
+              mobileMenuRef.current.classList.remove("active");
+            },
+          });
+        }}
+      ></div>
     </div>
   );
 }
