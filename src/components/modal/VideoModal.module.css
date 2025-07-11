@@ -1,0 +1,48 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+  width: 90%;
+  min-height: 100%;
+  padding: 50px 0;
+}
+
+.inner {
+  position: relative;
+}
+
+.content {
+}
+
+.BtnClose {
+  position: absolute;
+  top: -1rem;
+  right: 0;
+  transform: translate(0, -100%);
+  width: 3.2rem;
+  height: 3.2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.BtnClose svg {
+  width: 70%;
+  height: 70%;
+}

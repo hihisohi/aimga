@@ -6,6 +6,7 @@ import MainSubject from "@/components/sections/home/MainSubject";
 import MainEquipment from "@/components/sections/home/MainEquipment";
 import MainTechnique from "@/components/sections/home/MainTechnique";
 import MainNews from "@/components/sections/home/MainNews";
+import MainVideo from "@/components/sections/home/MainVideo";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
         <MainEquipment />
         <MainTechnique />
         <MainNews />
+        <MainVideo />
       </main>
     </div>
   );
