@@ -34,7 +34,7 @@ export default function MainEquipment() {
                   </div>
                 </div>
                 <div className={homeStyles["go-page-link"]}>
-                  <a href="/pages/equipment/dmx.php">
+                  <a href="">
                     <div className={homeStyles["link-txt"]}>
                       <span>View More</span>
                     </div>
@@ -55,7 +55,7 @@ export default function MainEquipment() {
               <li
                 className={styles["equip-item"] + " " + styles["equip-drx9000"]}
               >
-                <a href="/pages/equipment/drx9000.php">
+                <a href="">
                   <div className={styles["text"]}>
                     <strong>DRX9000</strong>
                     <p>Non-Surgical Spinal Decompression with the DRX-9000</p>
@@ -71,7 +71,7 @@ export default function MainEquipment() {
                 </a>
               </li>
               <li className={styles["equip-item"] + " " + styles["equip-dmx"]}>
-                <a href="/pages/equipment/dmx.php">
+                <a href="">
                   <div className={styles["text"]}>
                     <strong>DMX</strong>
                     <p>
@@ -90,7 +90,7 @@ export default function MainEquipment() {
                 </a>
               </li>
               <li className={styles["equip-item"] + " " + styles["equip-lllt"]}>
-                <a href="/pages/equipment/lllt.php">
+                <a href="">
                   <div className={styles["text"]}>
                     <strong>LLLT(ML-830)</strong>
                     <p>

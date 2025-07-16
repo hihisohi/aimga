@@ -19,14 +19,10 @@ const QuickBarDesktop = () => {
 
   // lenis 스크롤 이벤트 리스너 추가
   useEffect(() => {
-    console.log("Lenis in QuickBarDesktop:", lenis);
-
     if (lenis) {
-      console.log("Adding scroll event listener to Lenis");
       lenis.on("scroll", handleScrollWithLenis);
 
       return () => {
-        console.log("Removing scroll event listener from Lenis");
         lenis.off("scroll", handleScrollWithLenis);
       };
     } else {
@@ -148,7 +144,7 @@ const QuickBarDesktop = () => {
             <li
               className={`${styles["quick-link-item"]} ${styles["quick-link-email"]}`}
             >
-              <a href="/contact">
+              <a href="">
                 <div className={styles["link-icon"]}>
                   <Image
                     src="/images/common/icon/quick-email.svg"
@@ -163,7 +159,7 @@ const QuickBarDesktop = () => {
             <li
               className={`${styles["quick-link-item"]} ${styles["quick-link-location"]}`}
             >
-              <a href="/location">
+              <a href="">
                 <div className={styles["link-icon"]}>
                   <Image
                     src="/images/common/icon/quick-location.svg"

@@ -174,7 +174,7 @@ export default function MainTechnique() {
                         for severe nerve compression and herniated discs.
                       </p>
                       <div className={homeStyles["go-page-link"]}>
-                        <a href="/pages/treatment/ring-dinger.php">
+                        <a href="">
                           <div className={homeStyles["link-txt"]}>
                             <span>View More</span>
                           </div>

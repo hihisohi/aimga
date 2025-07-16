@@ -1,6 +1,26 @@
+import { useEffect, useRef } from "react";
 import styles from "./VideoModal.module.css";
 
-export default function VideoModal({ onClose }) {
+export default function VideoModal({
+  isOpen,
+  onClose,
+  currentTime,
+  onTimeUpdate,
+}) {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      videoRef.current.currentTime = currentTime;
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+      onTimeUpdate(videoRef.current.currentTime);
+    }
+
+    console.log("모달 비디오 현재 시간 : " + videoRef.current.currentTime);
+  }, [isOpen]);
+
   return (
     <div
       className={`${styles.wrapper} ${styles["video-modal"]}`}
@@ -23,7 +43,13 @@ export default function VideoModal({ onClose }) {
             </svg>
           </button>
           <div className={styles.content}>
-            <video src="/videos/main_video.mp4" muted loop playsInline />
+            <video
+              ref={videoRef}
+              src="/videos/main_video.mp4"
+              muted
+              loop
+              playsInline
+            />
           </div>
         </div>
       </div>

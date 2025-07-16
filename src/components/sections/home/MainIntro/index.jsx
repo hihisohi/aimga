@@ -50,7 +50,7 @@ export default function MainIntro() {
                 </p>
               </div>
               <div className={homeStyles["go-page-link"]}>
-                <a href="/pages/about/clinic.php">
+                <a href="">
                   <div className={homeStyles["link-txt"]}>
                     <span>About US</span>
                   </div>

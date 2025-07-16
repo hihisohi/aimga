@@ -164,7 +164,7 @@ export default function Header() {
                     >
                       {GNB_MENU.map((item) => (
                         <li className={styles["depth1_item"]} key={item.label}>
-                          <a href={item.path} className={styles["depth1_link"]}>
+                          <a href="" className={styles["depth1_link"]}>
                             {item.label}
                           </a>
                         </li>
@@ -248,10 +248,7 @@ export default function Header() {
               <ul className={styles["depth2_list"]}>
                 {item.children.map((child) => (
                   <li key={child.label}>
-                    <a
-                      href={item.path + child.path}
-                      className={styles["depth2_link"]}
-                    >
+                    <a href="" className={styles["depth2_link"]}>
                       {child.label}
                     </a>
                   </li>

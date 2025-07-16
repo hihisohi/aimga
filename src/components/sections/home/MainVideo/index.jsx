@@ -14,6 +14,8 @@ export default function MainVideo() {
   const videoRef = useRef(null);
 
   const [showModal, setShowModal] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(null);
+  const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -29,18 +31,22 @@ export default function MainVideo() {
       onEnter: () => {
         // 섹션이 화면에 들어올 때 비디오 재생
         video.play();
+        setIsPlaying(true);
       },
       onLeave: () => {
         // 섹션이 화면에서 나갈 때 비디오 정지
         video.pause();
+        setIsPlaying(false);
       },
       onEnterBack: () => {
         // 스크롤을 다시 위로 올려서 섹션에 다시 들어올 때 비디오 재생
         video.play();
+        setIsPlaying(true);
       },
       onLeaveBack: () => {
         // 스크롤을 위로 올려서 섹션에서 나갈 때 비디오 정지
         video.pause();
+        setIsPlaying(false);
       },
     });
 
@@ -53,6 +59,18 @@ export default function MainVideo() {
       });
     };
   }, []);
+
+  useEffect(() => {
+    if (isPlaying === null) return;
+
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  }, [showModal]);
 
   return (
     <section
@@ -109,7 +127,14 @@ export default function MainVideo() {
         </div>
       </div>
       <ModalPortal>
-        {showModal && <VideoModal onClose={() => setShowModal(false)} />}
+        {showModal && (
+          <VideoModal
+            isOpen={showModal}
+            onClose={() => setShowModal(false)}
+            currentTime={currentTime}
+            onTimeUpdate={setCurrentTime}
+          />
+        )}
       </ModalPortal>
     </section>
   );

@@ -65,7 +65,7 @@ export default function QuickBarMobile() {
             <li
               className={`${styles["quick-link-item"]} ${styles["quick-link-email"]}`}
             >
-              <a href="/contact">
+              <a href="">
                 <div className={styles["link-icon"]}>
                   <Image
                     src="/images/common/icon/quick-email.svg"
@@ -80,7 +80,7 @@ export default function QuickBarMobile() {
             <li
               className={`${styles["quick-link-item"]} ${styles["quick-link-location"]}`}
             >
-              <a href="/location">
+              <a href="">
                 <div className={styles["link-icon"]}>
                   <Image
                     src="/images/common/icon/quick-location.svg"

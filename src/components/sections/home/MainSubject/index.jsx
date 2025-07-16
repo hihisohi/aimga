@@ -40,7 +40,7 @@ export default function MainSubject() {
               </p>
             </div>
             <div className={homeStyles["go-page-link"]}>
-              <a href="/pages/disease/disc.php">
+              <a href="">
                 <div className={homeStyles["link-txt"]}>
                   <span>View More</span>
                 </div>
